@@ -1,4 +1,6 @@
-const orm = require('./orm');
+// const orm = require('./orm');
+const db = require( './connection' )(process.env.DB_NAME,process.env.DB_PWD)
+
 
 function router( app ){
     app.get('/api/notes', async ( req,res ) => {
@@ -11,6 +13,11 @@ function router( app ){
         res.redirect('/')
     })
 
+    app.get(`/api/dates/:range`, async (req, res) => {
+        let range = req.params.range
+        let desiredData = await db.query(`SELECT * FROM notes WHERE TIMESTAMPDIFF(day,time,CURRENT_TIMESTAMP) between 0 and ${range}`)
+        res.send(desiredData)
+    })
     // app.put();
 
     // app.delete();
