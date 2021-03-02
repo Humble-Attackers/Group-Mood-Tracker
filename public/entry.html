@@ -63,11 +63,11 @@
 
     <nav class="navbar navbar-light mid" style="height:100px;">
         <div class="container-fluid" style="width:80%">
-            <button class='btn emos' id="1"><i class="fas fa-angry fa-4x" onClick="push1()"></i><span>1</span></button>
-            <button class='btn emos' id="2"><i class="fas fa-frown fa-4x" onClick="push2()"></i><span>2</span></button>
-            <button class='btn emos' id="3"><i class="fas fa-meh fa-4x" onClick="push3()"></i><span>3</span></button>
-            <button class='btn emos' id="4"><i class="fas fa-smile fa-4x" onClick="push4()"></i><span>4</span></button>
-            <button class='btn emos' id="5"><i class="fas fa-laugh-beam fa-4x" onClick="push5()"></i><span>5</span></button>
+            <button class='btn emos' id="one"><i class="fas fa-angry fa-4x" onClick="push1()"></i><span>1</span></button>
+            <button class='btn emos' id="two"><i class="fas fa-frown fa-4x" onClick="push2()"></i><span>2</span></button>
+            <button class='btn emos' id="three"><i class="fas fa-meh fa-4x" onClick="push3()"></i><span>3</span></button>
+            <button class='btn emos' id="four"><i class="fas fa-smile fa-4x" onClick="push4()"></i><span>4</span></button>
+            <button class='btn emos' id="five"><i class="fas fa-laugh-beam fa-4x" onClick="push5()"></i><span>5</span></button>
         </div>
     </nav>
     <form>
@@ -112,7 +112,7 @@
             const quoteData = {
                 emo: arr,
                 title: document.getElementById('title').value,
-                note: document.getElementById('note').value
+                note: document.getElementById('note').value,
             }
             fetchOptions.body = JSON.stringify(quoteData)
 
