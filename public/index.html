@@ -19,42 +19,43 @@
 <!-- we will start the app when this page is loaded by running it with onLoad... -->
 
 <body>
-
     <div id="background" class="fixed-top fixed-bottom">
+        <logo class="fixed-top text-center"> MOOD TRACKER </logo>
+
         <div class='container'>
-            <div class="row mb-5 fixed-top">
-                <div class="col-4 text-center">
+            <div class="row mt-5 mb-5 text-center">
+                <div class="col-4">
                     <a href="entry.html">
-                    <btn type="button" class="btn">
-                        NEW ENTRY
-                    </btn>
+                        <button type="button" class="btn">
+                            NEW ENTRY
+                        </button>
                     </a>
                 </div>
-                <div class="col-4 text-center">
+                <div class="col-4">
                     <a href="recents.html">
-                    <btn type="button" class="btn">
-                        VIEW RECENT ENTRIES
-                    </btn>
-                </a>
+                        <button type="button" class="btn">
+                            VIEW RECENT ENTRIES
+                        </button>
+                    </a>
                 </div>
-                <div class="col-4 text-center">
-                    <a href="viewData.html"> 
-                    <btn type="button" class="btn">
-                        VIEW DATA
-                    </btn>
+                <div class="col-4">
+                    <a href="viewData.html">
+                        <button type="button" class="btn">
+                            VIEW DATA
+                        </button>
                     </a>
                 </div>
             </div>
 
-            <div class="row m-5">
+            <div class="row mt-3 m-5">
                 <div class="col-12 mt-5 pt-5">
                     <h1 class="text-center">MOOD TRACKER</h1>
                 </div>
             </div>
         </div>
 
-    <script src="https://unpkg.com/moment"></script>
-    <script src="./assets/script.js"></script>
+        <script src="https://unpkg.com/moment"></script>
+        <script src="./assets/script.js"></script>
 
         <script src="assets/package/vendor/three.r119.min.js"></script>
         <script src="assets/package/dist/vanta.clouds.min.js"></script>
@@ -66,7 +67,7 @@
                 gyroControls: false,
                 minHeight: 200.00,
                 minWidth: 200.00,
-                speed: 0.40
+                speed: 0.70
             })
         </script>
 </body>
