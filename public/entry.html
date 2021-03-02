@@ -1,12 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="https://kit.fontawesome.com/f70b02ae27.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <title>Entry</title>
 </head>
+
+<style>
+    body {
+        height: 100%
+    }
+
+    button {
+        height: 50px;
+    }
+
+    .fas {
+        color: orange;
+    }
+
+    .mid {
+        margin: 100px auto;
+        max-width: 1150px;
+    }
+
+    .emos {
+        border-radius: 9999px;
+        width: 85px;
+        height: 85px;
+        background-color: none;
+        border: none;
+    }
+    span {
+        display: none;
+    }
+    .conNote {
+        max-width: 900px;
+    }
+
+    input {
+        height: 50px;
+    }
+
+    textarea {
+        resize: none;
+    }
+</style>
+
 <body>
-    
+    <nav class="navbar navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand ps-4" href="index.html"><i class="fas fa-chevron-left"></i></a>
+            <button class="btn btn-danger me-2">Save (mobile)</button>
+        </div>
+    </nav>
+
+
+    <nav class="navbar navbar-light mid" style="height:100px;">
+        <div class="container-fluid" style="width:80%">
+            <button class='btn emos' id="1"><i class="fas fa-angry fa-4x" onClick="push1()"></i><span>1</span></button>
+            <button class='btn emos' id="2"><i class="fas fa-frown fa-4x" onClick="push2()"></i><span>2</span></button>
+            <button class='btn emos' id="3"><i class="fas fa-meh fa-4x" onClick="push3()"></i><span>3</span></button>
+            <button class='btn emos' id="4"><i class="fas fa-smile fa-4x" onClick="push4()"></i><span>4</span></button>
+            <button class='btn emos' id="5"><i class="fas fa-laugh-beam fa-4x" onClick="push5()"></i><span>5</span></button>
+        </div>
+    </nav>
+    <form>
+        <div class="container mt-5 px-5 conNote">
+            <div class="mb-3">
+                <input class="form-control" id="title" placeholder="Title">
+            </div>
+            <div class="mb-3">
+                <textarea class="form-control" id="note" rows="8" placeholder="Note"></textarea>
+            </div>
+        </div>
+    </form>
+    <div class="container px-5 conNote">
+        <button class="btn btn-danger">Delete (if editing)</button>
+        <button class="btn btn-primary float-end" onClick="save()">Save</button>
+    </div>
+    <script>
+
+        let arr
+
+        function push1(){
+            arr = '1'
+        }
+        function push2(){
+            arr = '2'
+        }
+        function push3(){
+            arr = '3'
+        }
+        function push4(){
+            arr = '4'
+        }
+        function push5(){
+            arr = '5'
+        }
+
+        async function save() {
+            const fetchOptions = {
+                headers: { 'Content-Type': 'application/json' },
+                method: 'POST'
+            }
+            const quoteData = {
+                emo: arr,
+                title: document.getElementById('title').value,
+                note: document.getElementById('note').value
+            }
+            fetchOptions.body = JSON.stringify(quoteData)
+
+            await fetch('/api/notes', fetchOptions).then(r => r.json())
+        }
+    </script>
+
 </body>
+
 </html>

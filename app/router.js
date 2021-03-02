@@ -1,13 +1,17 @@
-const orm = require('./orm');
+// const orm = require('./orm');
+const db = require('./connection')('mood_db','rootroot')
 
 function router( app ){
-    app.get()
+    // app.get()
 
-    app.post();
+    app.post('/api/notes', async ( req, res ) => {
+        await db.query('INSERT INTO notes (emotion, title, note) VALUES (?,?,?)', [req.body.emo, req.body.title, req.body.note])
+        res.redirect('/')
+    })
 
-    app.put();
+    // app.put();
 
-    app.delete();
+    // app.delete();
 }
 
 module.exports = router
