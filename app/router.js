@@ -11,7 +11,7 @@ function router( app ){
 
     app.get(`/api/dates/:range`, async (req, res) => {
         let range = req.params.range
-        let desiredData = await db.query(`SELECT * FROM notes WHERE TIMESTAMPDIFF(day,time,CURRENT_TIMESTAMP between 0 and ${range}`) 
+        let desiredData = await db.query(`SELECT * FROM notes WHERE TIMESTAMPDIFF(day,time,CURRENT_TIMESTAMP) between 0 and ${range}`)
         res.send(desiredData)
     })
     // app.put();
