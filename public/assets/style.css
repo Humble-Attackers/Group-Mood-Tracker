@@ -2,6 +2,12 @@
     width: 100px;
 }
 
+logo {
+    letter-spacing: 6px;
+    font-size: 14px;
+    font-weight: lighter;
+}
+
 .list-group-item {
     position: relative;
     display: block;
@@ -24,10 +30,74 @@
 }
 
 body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif; 
+    height: 100%
 }
 
 h1 {
-    letter-spacing: 3px;
+    letter-spacing: 6px;
     font-size: 50px;
+}
+
+/*ENTRY PAGE */
+
+button:hover {
+    background-color: lightblue;
+    color: white;
+  }
+
+#one {
+    color: red;
+    opacity: 70%;
+}
+
+#two {
+    color: orange;
+    opacity: 70%;
+}
+
+#three {
+    color: yellow;
+    opacity: 70%;
+}
+
+#four {
+    color: green;
+    opacity: 70%;
+}
+
+#five {
+    color: blue;
+    opacity: 70%;
+}
+
+.mid {
+    margin: 100px auto;
+    max-width: 1150px;
+}
+
+.emos {
+    border-radius: 9999px;
+    width: 85px;
+    height: 85px;
+    background-color: none;
+    border: none;
+}
+span {
+    display: none;
+}
+.conNote {
+    max-width: 900px;
+}
+
+input {
+    height: 50px;
+}
+
+textarea {
+    resize: none;
+}
+
+h5 {
+    letter-spacing: 6px;
   }
