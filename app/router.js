@@ -1,5 +1,5 @@
 // const orm = require('./orm');
-const db = require('./connection')('mood_db','rootroot')
+const db = require('./connection')('mood_db','Password4SQL')
 
 function router( app ){
     // app.get()
@@ -9,6 +9,11 @@ function router( app ){
         res.redirect('/')
     })
 
+    app.get(`/api/dates/:range`, async (req, res) => {
+        let range = req.params.range
+        let desiredData = await db.query(`SELECT * FROM notes WHERE TIMESTAMPDIFF(day,time,CURRENT_TIMESTAMP between 0 and ${range}`) 
+        res.send(desiredData)
+    })
     // app.put();
 
     // app.delete();
