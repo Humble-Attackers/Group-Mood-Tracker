@@ -1,5 +1,6 @@
-const orm = require('./orm');
-const db = require('./connection')(process.env.DB_NAME,process.env.DB_PWD)
+// const orm = require('./orm');
+const db = require( './connection' )(process.env.DB_NAME,process.env.DB_PWD)
+
 
 function router( app ){
     app.get('/api/notes', async ( req,res ) => {
