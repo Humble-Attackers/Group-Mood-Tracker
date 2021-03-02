@@ -1,20 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project #2</title>
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css"
+        integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
 
     <link rel="stylesheet" href="./assets/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
 </head>
 
 <!-- we will start the app when this page is loaded by running it with onLoad... -->
+
 <body>
     <!-- any NPM packages you want to include, you can directly include like this -->
     <script src="https://unpkg.com/moment"></script>
-    <script src="./assets/script.js" ></script>
+    <script src="./assets/script.js"></script>
 
+    <div id="background" class="fixed-top fixed-bottom">
+        <div class='container'>
+            <div class="row mb-5 fixed-top">
+                <div class="col-4 text-center">
+                    <a href="entry.html">
+                    <btn type="button" class="btn">
+                        NEW ENTRY
+                    </btn>
+                    </a>
+                </div>
+                <div class="col-4 text-center">
+                    <a href="recents.html">
+                    <btn type="button" class="btn">
+                        VIEW RECENT ENTRIES
+                    </btn>
+                </a>
+                </div>
+                <div class="col-4 text-center">
+                    <a href="viewData.html"> 
+                    <btn type="button" class="btn">
+                        VIEW DATA
+                    </btn>
+                    </a>
+                </div>
+            </div>
+
+            <div class="row m-5">
+                <div class="col-12 mt-5 pt-5">
+                    <h1 class="text-center">MOOD TRACKER</h1>
+                </div>
+            </div>
+        </div>
+
+        <script src="assets/package/vendor/three.r119.min.js"></script>
+        <script src="assets/package/dist/vanta.clouds.min.js"></script>
+        <script>
+            VANTA.CLOUDS({
+                el: "#background",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                speed: 0.40
+            })
+        </script>
 </body>
+
 </html>
