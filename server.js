@@ -1,4 +1,4 @@
-// require( 'dotenv' ).config() // looks for .env ; process.env gets it's values
+require( 'dotenv' ).config() // looks for .env ; process.env gets it's values
 
 const express = require('express')
 const apiRouter = require('./app/router')
