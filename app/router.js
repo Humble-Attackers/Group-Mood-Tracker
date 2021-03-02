@@ -1,5 +1,4 @@
-// const orm = require('./orm');
-const db = require('./connection')('mood_db','rootroot')
+const orm = require('./orm');
 
 function router( app ){
     app.get('/api/notes', async ( req,res ) => {
