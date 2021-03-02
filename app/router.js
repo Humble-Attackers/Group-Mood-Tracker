@@ -1,5 +1,5 @@
 // const orm = require('./orm');
-const db = require('./connection')('mood_db','Password4SQL')
+const db = require('./connection')('mood_db','root')
 
 function router( app ){
     app.get('/api/notes', async ( req,res ) => {
