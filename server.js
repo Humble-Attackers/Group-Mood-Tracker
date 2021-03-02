@@ -1,10 +1,10 @@
-require( 'dotenv' ).config() // looks for .env ; process.env gets it's values
+// require( 'dotenv' ).config() // looks for .env ; process.env gets it's values
 
 const express = require('express')
 const apiRouter = require('./app/router')
 const app = express()
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 3000
 
 // for parsing incoming POST data
 app.use(express.urlencoded({ extended: true }))
