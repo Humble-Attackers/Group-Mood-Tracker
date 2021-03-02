@@ -84,6 +84,9 @@
         <button class="btn btn-danger">Delete (if editing)</button>
         <button class="btn btn-primary float-end" onClick="save()">Save</button>
     </div>
+
+
+    <script src="https://unpkg.com/moment"></script>
     <script>
 
         let arr
@@ -105,6 +108,7 @@
         }
 
         async function save() {
+            console.log(time,day,month)
             const fetchOptions = {
                 headers: { 'Content-Type': 'application/json' },
                 method: 'POST'
