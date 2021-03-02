@@ -7,6 +7,10 @@ CREATE TABLE notes (
     emotion INT,
     title VARCHAR(100),
     note VARCHAR(400),
+<<<<<<< HEAD
     time TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
 );
 
+=======
+);
+>>>>>>> main
