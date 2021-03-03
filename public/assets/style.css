@@ -1,3 +1,9 @@
+:root{
+    opacity: 100%;
+}
+#my_dataviz {
+    opacity: 100% !important;
+}
 
 #logo {
     width: 100px;
