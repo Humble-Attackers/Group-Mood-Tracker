@@ -14,9 +14,9 @@ function getDesired( range ){
     return db.query(`SELECT * FROM notes WHERE TIMESTAMPDIFF(day,time,CURRENT_TIMESTAMP) between 0 and ${range}`)
 }
 
-function postNote( emo, title, note ){
+function postNote( emotion, title, note ){
     return db.query('INSERT INTO notes (emotion, title, note) VALUES (?,?,?)',
-    [emo, title, note])
+    [emotion, title, note])
 }
 
 function updateNote( emotion, title, note, id ){

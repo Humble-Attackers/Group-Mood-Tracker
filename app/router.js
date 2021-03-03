@@ -26,8 +26,8 @@ function router(app) {
   });
 
   app.post("/api/notes", async (req, res) => {
-    const note = req.body
-    await orm.postNote( note.emotion, note.title, note.note )
+    const noteData = req.body
+    await orm.postNote( noteData.emotion, noteData.title, noteData.note )
 
     res.send( { message: "Note Saved!"} );
   });

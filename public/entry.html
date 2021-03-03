@@ -37,24 +37,24 @@
         <div class="container text-nowrap">
           <div class="row">
             <div class="col-12">
-              <button class="btn g-0 m-0 p-0 p-sm-3" id="one">
-                <i class="fas fa-angry fa-3x" onClick="push1()"></i>
+              <button class="btn g-0 m-0 p-0 p-sm-3" id="one" onClick="push1()">
+                <i class="fas fa-angry fa-3x"></i>
                 <span>1</span>
               </button>
-              <button class='btn g-0 m-0 p-0 p-sm-3' id="two">
-                <i class="fas fa-frown fa-3x" onClick="push2()"></i>
+              <button class='btn g-0 m-0 p-0 p-sm-3' id="two" onClick="push2()">
+                <i class="fas fa-frown fa-3x"></i>
                 <span>2</span>
               </button>
-              <button class='btn g-0 m-0 p-0 p-sm-3' id="three">
-                <i class="fas fa-meh fa-3x" onClick="push3()"></i>
+              <button class='btn g-0 m-0 p-0 p-sm-3' id="three" onClick="push3()">
+                <i class="fas fa-meh fa-3x"></i>
                 <span>3</span>
               </button>
-              <button class='btn g-0 m-0 p-0 p-sm-3' id="four">
-                <i class="fas fa-smile fa-3x" onClick="push4()"></i>
+              <button class='btn g-0 m-0 p-0 p-sm-3' id="four" onClick="push4()">
+                <i class="fas fa-smile fa-3x"></i>
                 <span>4</span>
               </button>
-              <button class='btn g-0 m-0 p-0 p-sm-3' id="five">
-                <i class="fas fa-laugh-beam fa-3x" onClick="push5()"></i>
+              <button class='btn g-0 m-0 p-0 p-sm-3' id="five" onClick="push5()">
+                <i class="fas fa-laugh-beam fa-3x"></i>
                 <span>5</span>
               </button>
             </div>
@@ -95,130 +95,8 @@
       baseColor: 0xffd7cb
     })
   </script>
+  <script src="assets/script.js"></script>
   <script>
-
-    function fetchJSON( url, method = "get", data = {}) {
-      const fetchOptions = {
-        method,
-        headers: { "Content-Type": "application/json" },
-      };
-      if (method === "post" || method === "put")
-        fetchOptions.body = JSON.stringify(data);
-
-      return fetch(url, fetchOptions).then((r) => r.json());
-    }
-
-    async function loadQuote() {
-      const id = location.hash.substr(1);
-      console.log(`[editNote] ${id}`);
-      if (Number(id) > 0) {
-        // load the data
-        const noteData = await fetchJSON(`/api/notes/${id}`);
-        if (noteData.id > 0) {
-          console.log(` ... noteData: `, noteData);
-          // display the quote info
-          arr = noteData.emotion;
-          document.querySelector("#id").value = noteData.id;
-          document.querySelector("#title").value = noteData.title;
-          document.querySelector("#note").value = noteData.note;
-          document.querySelector("#newBtn").innerHTML = `
-                  <button class="btn btn-light" onClick='deleteNote(${noteData.id})'>DELETE</button>
-                  <button class="btn btn-light float-end d-none d-sm-block" onClick="submitForm(event)">SAVE</button>
-                  `;
-        }
-      }
-    }
-
-    async function deleteNote(id) {
-      if (confirm("Are you sure about this?"))
-        await fetchJSON(`/api/notes/${id}`, "delete");
-      location.href = "/recents.html";
-    }
-
-    let arr;
-
-    function push1() {
-      arr = "1";
-      let q = document.getElementById("one");
-      let w = document.getElementById("two");
-      let e = document.getElementById("three");
-      let r = document.getElementById("four");
-      let t = document.getElementById("five");
-      w.style.boxShadow = "none";
-      e.style.boxShadow = "none";
-      r.style.boxShadow = "none";
-      t.style.boxShadow = "none";
-      q.style.boxShadow = "0 0 0 3px black";
-    }
-    function push2() {
-      arr = "2";
-      let q = document.getElementById("one");
-      let w = document.getElementById("two");
-      let e = document.getElementById("three");
-      let r = document.getElementById("four");
-      let t = document.getElementById("five");
-      q.style.boxShadow = "none";
-      e.style.boxShadow = "none";
-      r.style.boxShadow = "none";
-      t.style.boxShadow = "none";
-      w.style.boxShadow = "0 0 0 3px black";
-    }
-    function push3() {
-      arr = "3";
-      let q = document.getElementById("one");
-      let w = document.getElementById("two");
-      let e = document.getElementById("three");
-      let r = document.getElementById("four");
-      let t = document.getElementById("five");
-      w.style.boxShadow = "none";
-      q.style.boxShadow = "none";
-      r.style.boxShadow = "none";
-      t.style.boxShadow = "none";
-      e.style.boxShadow = "0 0 0 3px black";
-    }
-    function push4() {
-      arr = "4";
-      let q = document.getElementById("one");
-      let w = document.getElementById("two");
-      let e = document.getElementById("three");
-      let r = document.getElementById("four");
-      let t = document.getElementById("five");
-      w.style.boxShadow = "none";
-      e.style.boxShadow = "none";
-      q.style.boxShadow = "none";
-      t.style.boxShadow = "none";
-      r.style.boxShadow = "0 0 0 3px black";
-    }
-    function push5() {
-      arr = "5";
-      let q = document.getElementById("one");
-      let w = document.getElementById("two");
-      let e = document.getElementById("three");
-      let r = document.getElementById("four");
-      let t = document.getElementById("five");
-      w.style.boxShadow = "none";
-      e.style.boxShadow = "none";
-      r.style.boxShadow = "none";
-      q.style.boxShadow = "none";
-      t.style.boxShadow = "0 0 0 3px black";
-    }
-
-    async function submitForm(e) {
-      e.preventDefault();
-
-      const id = document.getElementById("id").value;
-      console.log(id)
-      const noteData = {
-        emo: arr,
-        title: document.getElementById("title").value,
-        note: document.getElementById("note").value,
-      };
-      console.log(noteData)
-
-      await fetchJSON(`/api/notes/${id}`, id ? "put" : "post", noteData);
-
-      location.href = "/recents.html";
-    }
     loadQuote()
   </script>
 </body>
