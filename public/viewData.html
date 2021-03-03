@@ -5,228 +5,268 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
         integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
         crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
     <title>View Data</title>
 </head>
 
 <body>
-    <script src="https://d3js.org/d3.v4.js"></script>
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-    <div class="container">
-        <a href="index.html"><i class="fas fa-chevron-left fa-5x"></i></a>
-        <div style="border: 2px solid black;">
-            <div class="row">
-                <h1 class="text-center" id="graph_title">Mood For the Past 7 Days</h1>
-            </div>
-            <div class="row">
-                <div class="col-12 justify-content-center d-flex">
-                    <div id="my_dataviz"></div>
+    <div id="backgroundVD" class="fixed-top fixed-bottom">
+        <logo class="fixed-top text-center mt-2"> MOOD TRACKER </logo>
+
+        <script src="https://d3js.org/d3.v4.js"></script>
+        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+        <div class="container text-center">
+
+            <!-- Back button-->
+            <nav class="navbar navbar-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand ps-4" href="index.html"><i class="fas fa-chevron-left"></i></a>
+                </div>
+            </nav>
+            <!-- MAIN CONTENT-->
+            <div class="container p-3">
+                <div class="row m-4">
+                    <h5 class="text-center" id="graph_title">THIS WEEK'S MOOD ENTRIES</h5>
+                </div>
+
+                <div style="border: 1px solid black;" class="mb-1 ms-1 me-1 mb-sm-3 ms-sm-2 me-sm-2">
+
+                    <div class="row">
+                        <div class="col-12 justify-content-center d-flex">
+                            <div id="my_dataviz"></div>
+                        </div>
+                    </div>
+                    <p id="Great"></p>
+                    <p id="Good"></p>
+                    <p id="OK"></p>
+                    <p id="Meh"></p>
+                    <p id="Bad"></p>
+                </div>
+
+
+                <div class="row">
+                    <div class="d-flex justify-content-end">
+                        <div class="dropdown pe-3">
+                            <button class="btn btn-light dropdown-toggle text-wrap" type="button" id="typeDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">CHART TYPE</button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <li><button class="dropdown-item" type="button"
+                                        onclick="updateType(`Doughnut Graph`)">DOUGHNUT
+                                        CHART
+                                    </button></li>
+                                <li><button class="dropdown-item" type="button" onclick="updateType(`Line Graph`)">LINE
+                                        GRAPH
+                                    </button></li>
+
+                            </ul>
+                        </div>
+                        <div class="dropdown pe-3">
+                            <button class="btn btn-light dropdown-toggle fs-6 text-wrap" type="button" id="timeDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">DAYS SHOWN</button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <li><button class="dropdown-item" type="button" onclick="updateTime(`Past 7 Days`)">Past
+                                        7
+                                        Days</button></li>
+                                <li><button class="dropdown-item" type="button"
+                                        onclick="updateTime(`Past 30 Days`)">Past 30
+                                        Days</button></li>
+                                <li><button class="dropdown-item" type="button"
+                                        onclick="updateTime(`Past 365 Days`)">Past
+                                        365
+                                        Days</button></li>
+                            </ul>
+                        </div>
+                        <button type="button" class="btn btn-dark" onclick="updateChart()">REFRESH
+                            CHART</button>
+                    </div>
+                    <div class="col">
+
+                    </div>
                 </div>
             </div>
-            <p id="Great"></p>
-            <p id="Good"></p>
-            <p id= "OK"></p>
-            <p id="Meh"></p>
-            <p id="Bad"></p> 
         </div>
-
-        <div class="row">
-            <div class="d-flex justify-content-end">
-                <div class="dropdown" style="margin-right: 20px;">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="typeDropdown"
-                        data-bs-toggle="dropdown" aria-expanded="false" style="width: 12rem;">What Type of
-                        Chart?</button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <li><button class="dropdown-item" type="button" onclick="updateType(`Doughnut Graph`)">Doughnut
-                                Chart</button></li>
-                        <li><button class="dropdown-item" type="button" onclick="updateType(`Line Graph`)">Line
-                                Graph</button></li>
-
-                    </ul>
-                </div>
-                <div class="dropdown" style="margin-right: 20px;">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="timeDropdown"
-                        data-bs-toggle="dropdown" aria-expanded="false" style="width: 12rem;">How Many Days?</button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <li><button class="dropdown-item" type="button" onclick="updateTime(`Past 7 Days`)">Past 7
-                                Days</button></li>
-                        <li><button class="dropdown-item" type="button" onclick="updateTime(`Past 30 Days`)">Past 30
-                                Days</button></li>
-                        <li><button class="dropdown-item" type="button" onclick="updateTime(`Past 365 Days`)">Past 365
-                                Days</button></li>
-                    </ul>
-                </div>
-                <button type="button" class="btn btn-primary" onclick="updateChart()">Update Chart</button>
-            </div>
-            <div class="col">
-
-            </div>
-        </div>
-
 
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
-        crossorigin="anonymous"></script>
 
+    <script src="assets/package/vendor/three.r119.min.js"></script>
+    <script src="assets/package/dist/vanta.halo.min.js"></script>
+    <script>
+        VANTA.HALO({
+            el: "#backgroundVD",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            baseColor: 0xf24100,
+            backgroundColor: 0x87c0f0,
+            amplitudeFactor: 2.10,
+            xOffset: -0.21,
+            size: 2.00
+        })
+    </script>
     <script>
         function buildDoughnut(data) {
-            // clear details
-            document.getElementById("Great").innerText = ``
-            document.getElementById("Good").innerText = ``
-            document.getElementById("OK").innerText = ``
-            document.getElementById("Meh").innerText = ``
-            document.getElementById("Bad").innerText = ``
-            
-            // set the dimensions and margins of the graph
-            var width = 450
-            height = 450
-            margin = 40
+    // clear details
+    document.getElementById("Great").innerText = ``
+    document.getElementById("Good").innerText = ``
+    document.getElementById("OK").innerText = ``
+    document.getElementById("Meh").innerText = ``
+    document.getElementById("Bad").innerText = ``
 
-            // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
-            var radius = Math.min(width, height) / 2 - margin
+    // set the dimensions and margins of the graph
+    var width = 450
+    height = 450
+    margin = 40
 
-            // append the svg object to the div called 'my_dataviz'
-            var svg = d3.select("#my_dataviz")
-                .append("svg")
-                .attr("width", width)
-                .attr("height", height)
-                .append("g")
-                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
+    var radius = Math.min(width, height) / 2 - margin
 
-            // Create dummy data
+    // append the svg object to the div called 'my_dataviz'
+    var svg = d3.select("#my_dataviz")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-            // set the color scale
-            var color = d3.scaleOrdinal()
-                .domain(["1", "2", "3", "4", "5"])
-                .range(['#FF0000', "#ffa500", "#FFFF00", "#00ff00", "#0000ff"]);
+    // Create dummy data
 
-            // Compute the position of each group on the pie:
-            var pie = d3.pie()
-                .sort(null) // Do not sort group by size
-                .value(function (d) { return d.value; })
-            var data_ready = pie(d3.entries(data))
+    // set the color scale
+    var color = d3.scaleOrdinal()
+        .domain(["1", "2", "3", "4", "5"])
+        .range(['#FF0000', "#ffa500", "#FFFF00", "#00ff00", "#0000ff"]);
 
-            // The arc generator
-            var arc = d3.arc()
-                .innerRadius(radius * 0.5)         // This is the size of the donut hole
-                .outerRadius(radius * 0.8)
+    // Compute the position of each group on the pie:
+    var pie = d3.pie()
+        .sort(null) // Do not sort group by size
+        .value(function (d) { return d.value; })
+    var data_ready = pie(d3.entries(data))
 
-            // Another arc that won't be drawn. Just for labels positioning
-            var outerArc = d3.arc()
-                .innerRadius(radius * 0.9)
-                .outerRadius(radius * 0.9)
+    // The arc generator
+    var arc = d3.arc()
+        .innerRadius(radius * 0.5)         // This is the size of the donut hole
+        .outerRadius(radius * 0.8)
 
-            // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
-            svg
-                .selectAll('allSlices')
-                .data(data_ready)
-                .enter()
-                .append('path')
-                .attr('d', arc)
-                .attr('fill', function (d) { return (color(d.data.key)) })
-                .attr("stroke", "white")
-                .style("stroke-width", "2px")
-                .style("opacity", 0.7)
+    // Another arc that won't be drawn. Just for labels positioning
+    var outerArc = d3.arc()
+        .innerRadius(radius * 0.9)
+        .outerRadius(radius * 0.9)
 
-            // create text log
-            if (data[5] > 0){
-                if (data[5]== 1){
-                    document.getElementById("Great").innerText = `You said you felt great ${data[5]} time :D`
-                } else {
-                    document.getElementById("Great").innerText = `You said you felt great ${data[5]} times :D`
-                }
-            } 
-            if (data[4] > 0){
-                if (data[4]== 1){
-                    document.getElementById("Good").innerText = `You said you felt good ${data[4]} time`
-                } else {
-                    document.getElementById("Good").innerText = `You said you felt good ${data[4]} times`
-                }
-            }
-            if (data[3] > 0){
-                if (data[3]== 1){
-                    document.getElementById("OK").innerText = `You said you felt ok ${data[3]} time`
-                } else {
-                    document.getElementById("OK").innerText = `You said you felt ok ${data[3]} times`
-                }
-            }  
-            if (data[2] > 0){
-                if (data[2]== 1){
-                    document.getElementById("Meh").innerText = `You said you felt meh ${data[2]} time`
-                } else {
-                    document.getElementById("Meh").innerText = `You said you felt meh ${data[2]} times`
-                }
-            }  
-            if (data[1] > 0){
-                if (data[1]== 1){
-                    document.getElementById("Bad").innerText = `You said you felt bad ${data[1]} time :(`
-                } else {
-                    document.getElementById("Bad").innerText = `You said you felt bad ${data[1]} times :(`
-                }
-            }  
-        
+    // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+    svg
+        .selectAll('allSlices')
+        .data(data_ready)
+        .enter()
+        .append('path')
+        .attr('d', arc)
+        .attr('fill', function (d) { return (color(d.data.key)) })
+        .attr("stroke", "white")
+        .style("stroke-width", "2px")
+        .style("opacity", 1)
+
+    // create text log
+    if (data[5] > 0) {
+        if (data[5] == 1) {
+            document.getElementById("Great").innerText = `You said you felt great ${data[5]} time :D`
+        } else {
+            document.getElementById("Great").innerText = `You said you felt great ${data[5]} times :D`
+        }
+    }
+    if (data[4] > 0) {
+        if (data[4] == 1) {
+            document.getElementById("Good").innerText = `You said you felt good ${data[4]} time`
+        } else {
+            document.getElementById("Good").innerText = `You said you felt good ${data[4]} times`
+        }
+    }
+    if (data[3] > 0) {
+        if (data[3] == 1) {
+            document.getElementById("OK").innerText = `You said you felt ok ${data[3]} time`
+        } else {
+            document.getElementById("OK").innerText = `You said you felt ok ${data[3]} times`
+        }
+    }
+    if (data[2] > 0) {
+        if (data[2] == 1) {
+            document.getElementById("Meh").innerText = `You said you felt meh ${data[2]} time`
+        } else {
+            document.getElementById("Meh").innerText = `You said you felt meh ${data[2]} times`
+        }
+    }
+    if (data[1] > 0) {
+        if (data[1] == 1) {
+            document.getElementById("Bad").innerText = `You said you felt bad ${data[1]} time :(`
+        } else {
+            document.getElementById("Bad").innerText = `You said you felt bad ${data[1]} times :(`
+        }
+    }
+
+}
+
+// update text of dropdowns
+function updateTime(newText) {
+    document.getElementById("timeDropdown").innerText = newText
+}
+function updateType(newText) {
+    document.getElementById("typeDropdown").innerText = newText
+}
+
+// get values in dropdowns and make API to get necessary data to create chart
+async function updateChart() {
+    let timeFrame = document.getElementById("timeDropdown").innerText
+    let chartType = document.getElementById("typeDropdown").innerText
+    // check if dropdowns have been changed before doing anyting
+    if (chartType !== "What Type of Chart?" && timeFrame !== "How Many Days?") {
+        // do server stuff here
+        if (chartType == "Doughnut Graph") {
+            // vvvvvvvvvvv IMPLEMENT CALL TO SERVER HERE vvvvvvvvvvvvv
+            let doughnutData = await getDoughnutData(timeFrame)
+            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            document.getElementById("my_dataviz").innerHTML = ''
+            document.getElementById('graph_title').innerText = `Mood For the ${timeFrame}`
+            buildDoughnut(doughnutData)
         }
 
-        // update text of dropdowns
-        function updateTime(newText) {
-            document.getElementById("timeDropdown").innerText = newText
-        }
-        function updateType(newText) {
-            document.getElementById("typeDropdown").innerText = newText
-        }
+    }
+}
+async function getDoughnutData(timeFrame) {
+    let range
+    switch (timeFrame) {
+        case "Past 7 Days":
+            range = 7
+            break
+        case "Past 30 Days":
+            range = 30
+            break
+        case "Past 365 Days":
+            range = 365
+            break
+        default:
+            range = 7
+            break
+    }
+    let returnedData = await fetch(`/api/dates/${range}`).then(r => r.json())
+    let doughnutData = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
+    for (let i = 0; i < returnedData.length; i++) {
+        doughnutData[returnedData[i].emotion] += 1
+    }
+    return doughnutData
+}
 
-        // get values in dropdowns and make API to get necessary data to create chart
-        async function updateChart() {
-            let timeFrame = document.getElementById("timeDropdown").innerText
-            let chartType = document.getElementById("typeDropdown").innerText
-            // check if dropdowns have been changed before doing anyting
-            if (chartType !== "What Type of Chart?" && timeFrame !== "How Many Days?") {
-                // do server stuff here
-                if (chartType == "Doughnut Graph") {
-                    // vvvvvvvvvvv IMPLEMENT CALL TO SERVER HERE vvvvvvvvvvvvv
-                    let doughnutData = await getDoughnutData(timeFrame)
-                    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-                    document.getElementById("my_dataviz").innerHTML = ''
-                    document.getElementById('graph_title').innerText = `Mood For the ${timeFrame}`
-                    buildDoughnut(doughnutData)
-                }
-
-            }
-        }
-        async function getDoughnutData(timeFrame) {
-            let range
-            switch (timeFrame) {
-                case "Past 7 Days":
-                    range = 7
-                    break
-                case "Past 30 Days":
-                    range = 30
-                    break
-                case "Past 365 Days":
-                    range = 365
-                    break
-                default:
-                    range = 7
-                    break
-            }
-            let returnedData = await fetch(`/api/dates/${range}`).then(r => r.json())
-            let doughnutData = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
-            for (let i = 0; i < returnedData.length; i++) {
-                doughnutData[returnedData[i].emotion] += 1
-            }
-            return doughnutData
-        }
-
-        async function main() {
-            let initialChartData = await getDoughnutData("Past 7 Days")
-            buildDoughnut(initialChartData)
-        }
+async function main() {
+    let initialChartData = await getDoughnutData("Past 7 Days")
+    buildDoughnut(initialChartData)
+}
         main()
     </script>
 </body>

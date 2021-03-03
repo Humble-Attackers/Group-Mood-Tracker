@@ -1,5 +1,4 @@
 const orm = require("./orm");
-const db = require("./connection")(process.env.DB_NAME, process.env.DB_PWD);
 
 function router(app) {
   app.get("/api/notes", async (req, res) => {
@@ -21,7 +20,7 @@ function router(app) {
 
   app.get(`/api/dates/:range`, async (req, res) => {
     let range = req.params.range;
-    const desiredData = orm.getDesired( range )
+    const desiredData = await orm.getDesired( range )
 
     res.send(desiredData);
   });

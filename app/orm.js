@@ -20,7 +20,7 @@ function postNote( emo, title, note ){
 }
 
 function updateNote( emotion, title, note, id ){
-    return db.query( `update notes SET emotion=?,title=?,note=? WHERE id=?`, 
+    return db.query( `UPDATE notes SET emotion=?,title=?,note=? WHERE id=?`, 
     [emotion, title, note, id] )
 }
 

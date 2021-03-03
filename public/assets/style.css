@@ -1,3 +1,10 @@
+:root{
+    opacity: 100%;
+}
+#my_dataviz {
+    opacity: 100% !important;
+}
+
 #logo {
     width: 100px;
 }
@@ -19,7 +26,7 @@ logo {
     border: 1px solid rgba(0, 0, 0, 0.125)
 }
 
-.todo-indicator {
+/* .todo-indicator {
     position: absolute;
     width: 6px;
     height: 60%;
@@ -27,7 +34,7 @@ logo {
     left: 0.625rem;
     top: 20%;
     opacity: .6;
-}
+} */
 
 body {
     font-family: 'Montserrat', sans-serif; 
@@ -36,7 +43,6 @@ body {
 
 h1 {
     letter-spacing: 6px;
-    font-size: 50px;
 }
 
 /*-------------------------*/
@@ -102,4 +108,16 @@ textarea {
 
 h5 {
     letter-spacing: 6px;
-  }
+}
+
+#entrySlot {
+    opacity: 70%;
+}
+
+#entryForm {
+    opacity: 70%;
+}
+
+button {
+    opacity: 70%;
+}
