@@ -10,69 +10,92 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
         integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
         crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
     <title>View Data</title>
 </head>
 
 <body>
-    <script src="https://d3js.org/d3.v4.js"></script>
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-    <div class="container">
-        <a href="index.html"><i class="fas fa-chevron-left fa-5x"></i></a>
-        <div style="border: 2px solid black;">
-            <div class="row">
-                <h1 class="text-center" id="graph_title">Mood For the Past 7 Days</h1>
-            </div>
-            <div class="row">
-                <div class="col-12 justify-content-center d-flex">
-                    <div id="my_dataviz"></div>
+    <bg id="backgroundVD" class="fixed-top fixed-bottom">
+        <logo class="fixed-top text-center mt-2"> MOOD TRACKER </logo>
+
+        <script src="https://d3js.org/d3.v4.js"></script>
+        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+        <div class="container text-center">
+
+            <!-- Back button-->
+            <nav class="navbar navbar-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand ps-4" href="index.html"><i class="fas fa-chevron-left"></i></a>
+                </div>
+            </nav>
+            <!-- MAIN CONTENT-->
+            <div class="container p-3">
+                <div class="row m-4">
+                    <h5 class="text-center" id="graph_title">THIS WEEK'S MOOD ENTRIES</h5>
+                </div>
+
+                <div style="border: 1px solid black;" class="mb-1 ms-1 me-1 mb-sm-3 ms-sm-2 me-sm-2">
+
+                    <div class="row">
+                        <div class="col-12 justify-content-center d-flex">
+                            <div id="my_dataviz"></div>
+                        </div>
+                    </div>
+                    <p id="Great"></p>
+                    <p id="Good"></p>
+                    <p id="OK"></p>
+                    <p id="Meh"></p>
+                    <p id="Bad"></p>
+                </div>
+
+
+                <div class="row">
+                    <div class="d-flex justify-content-end">
+                        <div class="dropdown pe-3">
+                            <button class="btn btn-light dropdown-toggle text-wrap" type="button" id="typeDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">CHART TYPE</button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <li><button class="dropdown-item" type="button"
+                                        onclick="updateType(`Doughnut Graph`)">DOUGHNUT
+                                        CHART
+                                    </button></li>
+                                <li><button class="dropdown-item" type="button" onclick="updateType(`Line Graph`)">LINE
+                                        GRAPH
+                                    </button></li>
+
+                            </ul>
+                        </div>
+                        <div class="dropdown pe-3">
+                            <button class="btn btn-light dropdown-toggle fs-6 text-wrap" type="button" id="timeDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">DAYS SHOWN</button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                <li><button class="dropdown-item" type="button" onclick="updateTime(`Past 7 Days`)">Past
+                                        7
+                                        Days</button></li>
+                                <li><button class="dropdown-item" type="button"
+                                        onclick="updateTime(`Past 30 Days`)">Past 30
+                                        Days</button></li>
+                                <li><button class="dropdown-item" type="button"
+                                        onclick="updateTime(`Past 365 Days`)">Past
+                                        365
+                                        Days</button></li>
+                            </ul>
+                        </div>
+                        <button type="button" class="btn btn-dark" onclick="updateChart()">REFRESH
+                            CHART</button>
+                    </div>
+                    <div class="col">
+
+                    </div>
                 </div>
             </div>
-            <p id="Great"></p>
-            <p id="Good"></p>
-            <p id= "OK"></p>
-            <p id="Meh"></p>
-            <p id="Bad"></p> 
-        </div>
-
-        <div class="row">
-            <div class="d-flex justify-content-end">
-                <div class="dropdown" style="margin-right: 20px;">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="typeDropdown"
-                        data-bs-toggle="dropdown" aria-expanded="false" style="width: 12rem;">What Type of
-                        Chart?</button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <li><button class="dropdown-item" type="button" onclick="updateType(`Doughnut Graph`)">Doughnut
-                                Chart</button></li>
-                        <li><button class="dropdown-item" type="button" onclick="updateType(`Line Graph`)">Line
-                                Graph</button></li>
-
-                    </ul>
-                </div>
-                <div class="dropdown" style="margin-right: 20px;">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="timeDropdown"
-                        data-bs-toggle="dropdown" aria-expanded="false" style="width: 12rem;">How Many Days?</button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <li><button class="dropdown-item" type="button" onclick="updateTime(`Past 7 Days`)">Past 7
-                                Days</button></li>
-                        <li><button class="dropdown-item" type="button" onclick="updateTime(`Past 30 Days`)">Past 30
-                                Days</button></li>
-                        <li><button class="dropdown-item" type="button" onclick="updateTime(`Past 365 Days`)">Past 365
-                                Days</button></li>
-                    </ul>
-                </div>
-                <button type="button" class="btn btn-primary" onclick="updateChart()">Update Chart</button>
-            </div>
-            <div class="col">
-
-            </div>
-        </div>
-
+    </bg>
 
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
-        crossorigin="anonymous"></script>
 
     <script>
         function buildDoughnut(data) {
@@ -82,7 +105,7 @@
             document.getElementById("OK").innerText = ``
             document.getElementById("Meh").innerText = ``
             document.getElementById("Bad").innerText = ``
-            
+
             // set the dimensions and margins of the graph
             var width = 450
             height = 450
@@ -132,45 +155,45 @@
                 .attr('fill', function (d) { return (color(d.data.key)) })
                 .attr("stroke", "white")
                 .style("stroke-width", "2px")
-                .style("opacity", 0.7)
+                .style("opacity", 1)
 
             // create text log
-            if (data[5] > 0){
-                if (data[5]== 1){
+            if (data[5] > 0) {
+                if (data[5] == 1) {
                     document.getElementById("Great").innerText = `You said you felt great ${data[5]} time :D`
                 } else {
                     document.getElementById("Great").innerText = `You said you felt great ${data[5]} times :D`
                 }
-            } 
-            if (data[4] > 0){
-                if (data[4]== 1){
+            }
+            if (data[4] > 0) {
+                if (data[4] == 1) {
                     document.getElementById("Good").innerText = `You said you felt good ${data[4]} time`
                 } else {
                     document.getElementById("Good").innerText = `You said you felt good ${data[4]} times`
                 }
             }
-            if (data[3] > 0){
-                if (data[3]== 1){
+            if (data[3] > 0) {
+                if (data[3] == 1) {
                     document.getElementById("OK").innerText = `You said you felt ok ${data[3]} time`
                 } else {
                     document.getElementById("OK").innerText = `You said you felt ok ${data[3]} times`
                 }
-            }  
-            if (data[2] > 0){
-                if (data[2]== 1){
+            }
+            if (data[2] > 0) {
+                if (data[2] == 1) {
                     document.getElementById("Meh").innerText = `You said you felt meh ${data[2]} time`
                 } else {
                     document.getElementById("Meh").innerText = `You said you felt meh ${data[2]} times`
                 }
-            }  
-            if (data[1] > 0){
-                if (data[1]== 1){
+            }
+            if (data[1] > 0) {
+                if (data[1] == 1) {
                     document.getElementById("Bad").innerText = `You said you felt bad ${data[1]} time :(`
                 } else {
                     document.getElementById("Bad").innerText = `You said you felt bad ${data[1]} times :(`
                 }
-            }  
-        
+            }
+
         }
 
         // update text of dropdowns
@@ -228,6 +251,23 @@
             buildDoughnut(initialChartData)
         }
         main()
+    </script>
+    <script src="assets/package/vendor/three.r119.min.js"></script>
+    <script src="assets/package/dist/vanta.halo.min.js"></script>
+    <script>
+        VANTA.HALO({
+            el: "#backgroundVD",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            baseColor: 0xf24100,
+            backgroundColor: 0x87c0f0,
+            amplitudeFactor: 2.10,
+            xOffset: -0.21,
+            size: 2.00
+        })
     </script>
 </body>
 
