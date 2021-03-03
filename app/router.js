@@ -17,6 +17,13 @@ function router( app ){
         let desiredData = await db.query(`SELECT * FROM notes WHERE TIMESTAMPDIFF(day,time,CURRENT_TIMESTAMP) between 0 and ${range}`)
         res.send(desiredData)
     })
+
+    app.get(`/api/notes/calendar`, async(req, res) => {
+        const data = await db.query("SELECT emotion, DATE(time) FROM  notes ORDER BY DATE(time) ASC")
+        res.send(data)
+    })
+
+    
     // app.put();
 
     // app.delete();
