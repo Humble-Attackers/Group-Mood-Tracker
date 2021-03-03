@@ -1,6 +1,6 @@
-// an external npm package we are using
-
 const db = require( './connection' )(process.env.DB_NAME,process.env.DB_PWD)
+
+
 
 function getNotes(){
     return db.query('SELECT * FROM notes')
@@ -16,7 +16,7 @@ function getDesired( range ){
 
 function postNote( emo, title, note ){
     return db.query('INSERT INTO notes (emotion, title, note) VALUES (?,?,?)',
-    [emo, title, note,])
+    [emo, title, note])
 }
 
 function updateNote( emotion, title, note, id ){

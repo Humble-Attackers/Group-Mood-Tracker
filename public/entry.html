@@ -2,221 +2,225 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
-    <script src="https://kit.fontawesome.com/f70b02ae27.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="assets/style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+  <script src="https://kit.fontawesome.com/f70b02ae27.js" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
 
-    <title>Entry</title>
+  <title>Entry</title>
 </head>
 
 <body>
 
-    <div id="backgroundEntry" class="fixed-top fixed-bottom">
-        <logo class="fixed-top text-center"> MOOD TRACKER </logo>
+  <div id="backgroundEntry" class="fixed-top fixed-bottom">
+    <logo class="fixed-top text-center"> MOOD TRACKER </logo>
 
-        <nav class="navbar navbar-light">
-            <div class="container-fluid">
-                <a class="navbar-brand ps-4" href="index.html"><i class="fas fa-chevron-left"></i></a>
-                <button class="btn btn-light me-2 d-sm-none">SAVE</button>
+    <nav class="navbar navbar-light">
+      <div class="container-fluid">
+        <a class="navbar-brand ps-4" href="index.html"><i class="fas fa-chevron-left"></i></a>
+        <button class="btn btn-light me-2 d-sm-none">SAVE</button>
+      </div>
+    </nav>
+
+    <h5 class="text-center mt-5 mb-0">HOW DO YOU FEEL TODAY?</h5>
+
+    <nav class="navbar navbar-light mid mt-4" style="height:10px;">
+      <div class="container text-center">
+        <div class="container text-nowrap">
+          <div class="row">
+            <div class="col-12">
+              <button class="btn g-0 m-0 p-0 p-sm-3" id="one">
+                <i class="fas fa-angry fa-3x" onClick="push1()"></i>
+                <span>1</span>
+              </button>
+              <button class='btn g-0 m-0 p-0 p-sm-3' id="two">
+                <i class="fas fa-frown fa-3x" onClick="push2()"></i>
+                <span>2</span>
+              </button>
+              <button class='btn g-0 m-0 p-0 p-sm-3' id="three">
+                <i class="fas fa-meh fa-3x" onClick="push3()"></i>
+                <span>3</span>
+              </button>
+              <button class='btn g-0 m-0 p-0 p-sm-3' id="four">
+                <i class="fas fa-smile fa-3x" onClick="push4()"></i>
+                <span>4</span>
+              </button>
+              <button class='btn g-0 m-0 p-0 p-sm-3' id="five">
+                <i class="fas fa-laugh-beam fa-3x" onClick="push5()"></i>
+                <span>5</span>
+              </button>
             </div>
-        </nav>
-
-        <h5 class="text-center mt-5 mb-0">HOW DO YOU FEEL TODAY?</h5>
-
-        <nav class="navbar navbar-light mid mt-4" style="height:10px;">
-            <div class="container text-center">
-                <div class="container text-nowrap">
-                    <div class="row">
-                        <div class="col-12">
-                            <button class="btn g-0 m-0 p-0 p-sm-3" id="one">
-                                <i class="fas fa-angry fa-3x" onClick="push1()"></i>
-                                    <span>1</span>
-                            </button>
-                            <button class='btn g-0 m-0 p-0 p-sm-3' id="two">
-                                <i class="fas fa-frown fa-3x" onClick="push2()"></i>
-                                <span>2</span>
-                            </button>
-                            <button class='btn g-0 m-0 p-0 p-sm-3' id="three">
-                                <i class="fas fa-meh fa-3x" onClick="push3()"></i>
-                                <span>3</span>
-                            </button>
-                            <button class='btn g-0 m-0 p-0 p-sm-3' id="four">
-                                <i class="fas fa-smile fa-3x" onClick="push4()"></i>
-                                <span>4</span>
-                            </button>
-                            <button class='btn g-0 m-0 p-0 p-sm-3' id="five">
-                                <i class="fas fa-laugh-beam fa-3x" onClick="push5()"></i>
-                                <span>5</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <form>
-            <input name="id" id="id" type="hidden" value="" />
-
-            <div class="container mt-2 px-5 conNote">
-                <div class="mb-3" id="entryForm">
-                    <input class="form-control" id="title" placeholder="Title">
-                </div>
-                <div class="mb-3" id="entryForm">
-                    <textarea class="form-control" id="note" rows="8" placeholder="Note"></textarea>
-                </div>
-            </div>
-        </form>
-        <div class="container px-5 conNote" id="newBtn">
-            <button class="btn btn-light float-end d-none d-sm-block" onClick="save(event)">SAVE</button>
+          </div>
         </div>
-        </div>
+      </div>
+    </nav>
+    <form>
+      <input name="id" id="id" type="hidden" value="" />
 
-    <script src="assets/package/vendor/three.r119.min.js"></script>
-    <script src="assets/package/dist/vanta.fog.min.js"></script>
-    <script>
-        VANTA.FOG({
-            el: "#backgroundEntry",
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            highlightColor: 0x9fd6f5,
-            midtoneColor: 0x96ff,
-            lowlightColor: 0xfcbd43,
-            baseColor: 0xffd7cb
-        })
-    </script>
-    <script>function fetchJSON(url, method = "get", data = {}) {
-        const fetchOptions = {
-          method,
-          headers: { "Content-Type": "application/json" },
-        };
-        if (method === "post" || method === "put")
-          fetchOptions.body = JSON.stringify(data);
-      
-        // for get we don't need header, others we do
-        return fetch(url, fetchOptions).then((r) => r.json());
-      }
-      
-      async function loadQuote() {
-        const id = location.hash.substr(1);
-        console.log(`[editNote] ${id}`);
-        if (Number(id) > 0) {
-          // load the data
-          const noteData = await fetchJSON(`/api/notes/${id}`);
-          if (noteData.id > 0) {
-            console.log(` ... noteData: `, noteData);
-            // display the quote info
-            arr = noteData.emo;
-            document.querySelector("#id").value = noteData.id;
-            document.querySelector("#title").value = noteData.title;
-            document.querySelector("#note").value = noteData.note;
-            document.querySelector("#newBtn").innerHTML = `
+      <div class="container mt-2 px-5 conNote">
+        <div class="mb-3" id="entryForm">
+          <input class="form-control" id="title" placeholder="Title">
+        </div>
+        <div class="mb-3" id="entryForm">
+          <textarea class="form-control" id="note" rows="8" placeholder="Note"></textarea>
+        </div>
+      </div>
+    </form>
+    <div class="container px-5 conNote" id="newBtn">
+      <button class="btn btn-light float-end d-none d-sm-block" onClick="submitForm(event)">SAVE</button>
+    </div>
+  </div>
+
+  <script src="assets/package/vendor/three.r119.min.js"></script>
+  <script src="assets/package/dist/vanta.fog.min.js"></script>
+  <script>
+    VANTA.FOG({
+      el: "#backgroundEntry",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      highlightColor: 0x9fd6f5,
+      midtoneColor: 0x96ff,
+      lowlightColor: 0xfcbd43,
+      baseColor: 0xffd7cb
+    })
+  </script>
+  <script>
+
+    function fetchJSON( url, method = "get", data = {}) {
+      const fetchOptions = {
+        method,
+        headers: { "Content-Type": "application/json" },
+      };
+      if (method === "post" || method === "put")
+        fetchOptions.body = JSON.stringify(data);
+
+      return fetch(url, fetchOptions).then((r) => r.json());
+    }
+
+    async function loadQuote() {
+      const id = location.hash.substr(1);
+      console.log(`[editNote] ${id}`);
+      if (Number(id) > 0) {
+        // load the data
+        const noteData = await fetchJSON(`/api/notes/${id}`);
+        if (noteData.id > 0) {
+          console.log(` ... noteData: `, noteData);
+          // display the quote info
+          arr = noteData.emotion;
+          document.querySelector("#id").value = noteData.id;
+          document.querySelector("#title").value = noteData.title;
+          document.querySelector("#note").value = noteData.note;
+          document.querySelector("#newBtn").innerHTML = `
                   <button class="btn btn-light" onClick='deleteNote(${noteData.id})'>DELETE</button>
-                  <button class="btn btn-light float-end d-none d-sm-block" onClick="save(event)">SAVE</button>
+                  <button class="btn btn-light float-end d-none d-sm-block" onClick="submitForm(event)">SAVE</button>
                   `;
-          }
         }
       }
-      
-      async function deleteNote(id) {
-        if (confirm("Are you sure about this?"))
-          await fetchJSON(`/api/notes/${id}`, "delete");
-        location.href = "/recents.html";
-      }
-      
-      let arr;
-      
-      function push1() {
-        arr = "1";
-        let q = document.getElementById("one");
-        let w = document.getElementById("two");
-        let e = document.getElementById("three");
-        let r = document.getElementById("four");
-        let t = document.getElementById("five");
-        w.style.boxShadow = "none";
-        e.style.boxShadow = "none";
-        r.style.boxShadow = "none";
-        t.style.boxShadow = "none";
-        q.style.boxShadow = "0 0 0 3px black";
-      }
-      function push2() {
-        arr = "2";
-        let q = document.getElementById("one");
-        let w = document.getElementById("two");
-        let e = document.getElementById("three");
-        let r = document.getElementById("four");
-        let t = document.getElementById("five");
-        q.style.boxShadow = "none";
-        e.style.boxShadow = "none";
-        r.style.boxShadow = "none";
-        t.style.boxShadow = "none";
-        w.style.boxShadow = "0 0 0 3px black";
-      }
-      function push3() {
-        arr = "3";
-        let q = document.getElementById("one");
-        let w = document.getElementById("two");
-        let e = document.getElementById("three");
-        let r = document.getElementById("four");
-        let t = document.getElementById("five");
-        w.style.boxShadow = "none";
-        q.style.boxShadow = "none";
-        r.style.boxShadow = "none";
-        t.style.boxShadow = "none";
-        e.style.boxShadow = "0 0 0 3px black";
-      }
-      function push4() {
-        arr = "4";
-        let q = document.getElementById("one");
-        let w = document.getElementById("two");
-        let e = document.getElementById("three");
-        let r = document.getElementById("four");
-        let t = document.getElementById("five");
-        w.style.boxShadow = "none";
-        e.style.boxShadow = "none";
-        q.style.boxShadow = "none";
-        t.style.boxShadow = "none";
-        r.style.boxShadow = "0 0 0 3px black";
-      }
-      function push5() {
-        arr = "5";
-        let q = document.getElementById("one");
-        let w = document.getElementById("two");
-        let e = document.getElementById("three");
-        let r = document.getElementById("four");
-        let t = document.getElementById("five");
-        w.style.boxShadow = "none";
-        e.style.boxShadow = "none";
-        r.style.boxShadow = "none";
-        q.style.boxShadow = "none";
-        t.style.boxShadow = "0 0 0 3px black";
-      }
-      
-      async function save(e) {
-        e.preventDefault();
-      
-        const id = document.getElementById("id").value;
-        const noteData = {
-          emo: arr,
-          title: document.getElementById("title").value,
-          note: document.getElementById("note").value,
-        };
-      
-        await fetchJSON(`/api/notes/${id}`, id ? "put" : "post", noteData);
-      
-        location.href = "/recents.html";
-      }
-      loadQuote()
-      </script>
+    }
+
+    async function deleteNote(id) {
+      if (confirm("Are you sure about this?"))
+        await fetchJSON(`/api/notes/${id}`, "delete");
+      location.href = "/recents.html";
+    }
+
+    let arr;
+
+    function push1() {
+      arr = "1";
+      let q = document.getElementById("one");
+      let w = document.getElementById("two");
+      let e = document.getElementById("three");
+      let r = document.getElementById("four");
+      let t = document.getElementById("five");
+      w.style.boxShadow = "none";
+      e.style.boxShadow = "none";
+      r.style.boxShadow = "none";
+      t.style.boxShadow = "none";
+      q.style.boxShadow = "0 0 0 3px black";
+    }
+    function push2() {
+      arr = "2";
+      let q = document.getElementById("one");
+      let w = document.getElementById("two");
+      let e = document.getElementById("three");
+      let r = document.getElementById("four");
+      let t = document.getElementById("five");
+      q.style.boxShadow = "none";
+      e.style.boxShadow = "none";
+      r.style.boxShadow = "none";
+      t.style.boxShadow = "none";
+      w.style.boxShadow = "0 0 0 3px black";
+    }
+    function push3() {
+      arr = "3";
+      let q = document.getElementById("one");
+      let w = document.getElementById("two");
+      let e = document.getElementById("three");
+      let r = document.getElementById("four");
+      let t = document.getElementById("five");
+      w.style.boxShadow = "none";
+      q.style.boxShadow = "none";
+      r.style.boxShadow = "none";
+      t.style.boxShadow = "none";
+      e.style.boxShadow = "0 0 0 3px black";
+    }
+    function push4() {
+      arr = "4";
+      let q = document.getElementById("one");
+      let w = document.getElementById("two");
+      let e = document.getElementById("three");
+      let r = document.getElementById("four");
+      let t = document.getElementById("five");
+      w.style.boxShadow = "none";
+      e.style.boxShadow = "none";
+      q.style.boxShadow = "none";
+      t.style.boxShadow = "none";
+      r.style.boxShadow = "0 0 0 3px black";
+    }
+    function push5() {
+      arr = "5";
+      let q = document.getElementById("one");
+      let w = document.getElementById("two");
+      let e = document.getElementById("three");
+      let r = document.getElementById("four");
+      let t = document.getElementById("five");
+      w.style.boxShadow = "none";
+      e.style.boxShadow = "none";
+      r.style.boxShadow = "none";
+      q.style.boxShadow = "none";
+      t.style.boxShadow = "0 0 0 3px black";
+    }
+
+    async function submitForm(e) {
+      e.preventDefault();
+
+      const id = document.getElementById("id").value;
+      console.log(id)
+      const noteData = {
+        emo: arr,
+        title: document.getElementById("title").value,
+        note: document.getElementById("note").value,
+      };
+      console.log(noteData)
+
+      await fetchJSON(`/api/notes/${id}`, id ? "put" : "post", noteData);
+
+      location.href = "/recents.html";
+    }
+    loadQuote()
+  </script>
 </body>
 
 </html>

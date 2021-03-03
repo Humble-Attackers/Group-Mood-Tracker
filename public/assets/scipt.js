@@ -97,6 +97,7 @@ function push4() {
 }
 function push5() {
   arr = "5";
+  console.log(arr)
   let q = document.getElementById("one");
   let w = document.getElementById("two");
   let e = document.getElementById("three");

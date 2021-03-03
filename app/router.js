@@ -29,7 +29,7 @@ function router(app) {
     const note = req.body
     await orm.postNote( note.emotion, note.title, note.note )
 
-    res.redirect("/");
+    res.send( { message: "Note Saved!"} );
   });
 
   app.put("/api/notes/:id", async (req, res) => {
