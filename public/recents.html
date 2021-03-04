@@ -1,113 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./recent.css">
-    <script src="https://kit.fontawesome.com/f70b02ae27.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <title>Recents</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/f70b02ae27.js" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 
 <body>
+  <bg id="backgroundRecents" class="fixed-top fixed-bottom">
+    <logo class="fixed-top text-center mt-2"> MOOD TRACKER </logo>
 
-    <!--Back Button-->
-    <div class="backbtn">
-        <a href="./index.html" class="href"><i class="fas fa-chevron-left"></i></a>
-    </div>
-    
-    <!--Recent Entries Container-->
-    <div class="container-fluid text-center">
-    <div class="container" style="max-width:900px" id=recents> 
-        <h2>Recent Entries</h2>
-        <h4>Here is a list of your 10 most recent entries.</h4>
-        <div class="row d-flex justify-content-center">
-        <div class="card">
-            <div class="card-body">
-              Example Entry:
-              Title - Timestamp
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-                Example Entry:
-                Title - Timestamp
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-                Example Entry:
-                Title - Timestamp
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-                Example Entry:
-                Title - Timestamp
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-                Example Entry:
-                Title - Timestamp
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-                Example Entry:
-                Title - Timestamp
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-                Example Entry:
-                Title - Timestamp
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-                Example Entry:
-                Title - Timestamp
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-                Example Entry:
-                Title - Timestamp
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-                Example Entry:
-                Title - Timestamp
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body">
-                Example Entry:
-                Title - Timestamp
-            </div>
-          </div>
-    </div>
-</div>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <div class="container text-center">
 
-<script>
+      <!-- Back button-->
+      <nav class="navbar navbar-light">
+        <div class="container-fluid">
+          <a class="navbar-brand ps-4" href="index.html"><i class="fas fa-chevron-left"></i></a>
+        </div>
+      </nav>
 
-    async function getList(){
-        const data = await fetch('/api/notes').then(r => r.json())
+      <!--Recent Entries Container-->
+      <div class="container-fluid text-center">
+        <div id=recents>
 
-        data.map(r => {
-        document.getElementById('here').innerHTML += `
-        ${r.title} ${r.emotion}
-        `
-        })
-    }
+          <h1 class="mt-4 m-2 fs-2">RECENT ENTRIES</h1>
+
+          <h4 class="m-4 fw-light fs-6">Here is a list of your 7 most recent entries.</h4>
+
+          <div class="row d-flex justify-content-center">
+
+            <!-- ENTRIES-->
+            <div class="card my-2 w-75" id="entrySlot">
+              <div class="card-body">
+                Example Entry:
+                Title - Timestamp
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </bg>
+  <script src="assets/package/vendor/p5.min.js"></script>
+  <script src="assets/package/dist/vanta.topology.min.js"></script>
+  <script>
+    VANTA.TOPOLOGY({
+      el: "#backgroundRecents",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0xf8fcfc,
+      backgroundColor: 0xb7d0ff
+    })
+  </script>
+
+  <script src="assets/script.js"></script>
+  <script>
     getList()
-
-
-
-</script>
-
+  </script>
 </body>
+
 </html>

@@ -1,32 +1,59 @@
-const orm = require('./orm');
-const db = require('./connection')(process.env.DB_NAME,process.env.DB_PWD)
+const orm = require("./orm");
 
-function router( app ){
-    app.get('/api/notes', async ( req,res ) => {
-        const data = await db.query('SELECT * FROM notes')
-        res.send(data)
-    })
+function router(app) {
+  app.get("/api/notes", async (req, res) => {
+    const data = await orm.getNotes();
 
-    app.post('/api/notes', async ( req, res ) => {
-        await db.query('INSERT INTO notes (emotion, title, note) VALUES (?,?,?)', [req.body.emo, req.body.title, req.body.note])
-        res.redirect('/')
-    })
+    res.send(data);
+  });
 
-    app.get(`/api/dates/:range`, async (req, res) => {
-        let range = req.params.range
-        let desiredData = await db.query(`SELECT * FROM notes WHERE TIMESTAMPDIFF(day,time,CURRENT_TIMESTAMP) between 0 and ${range}`)
-        res.send(desiredData)
-    })
+  app.get("/api/notes/:id", async function (req, res) {
+    const id = req.params.id;
+    const notesData = await orm.getOne(id);
+    if (notesData.length === 1) {
+      console.log(`[GET /api/quotes/${id}] notesData`, notesData);
+      res.send(notesData[0]);
+    } else {
+      res.status(404).end();
+    }
+  });
 
-    app.get(`/api/notes/calendar`, async(req, res) => {
-        const data = await db.query("SELECT emotion, DATE(time) FROM  notes ORDER BY DATE(time) ASC")
-        res.send(data)
-    })
+  app.get(`/api/dates/:range`, async (req, res) => {
+    let range = req.params.range;
+    const desiredData = await orm.getDesired(range)
 
-    
-    // app.put();
+    res.send(desiredData);
+  });
 
-    // app.delete();
+  app.post("/api/notes", async (req, res) => {
+    const noteData = req.body
+    await orm.postNote(noteData.emotion, noteData.title, noteData.note)
+
+    res.send({ message: "Note Saved!" });
+  });
+
+  app.put("/api/notes/:id", async (req, res) => {
+    const noteData = req.body;
+    const id = req.params.id;
+    await orm.updateNote(noteData.emotion, noteData.title, noteData.note, id);
+
+    res.send({ message: "Note Updated!" });
+  });
+
+  app.delete("/api/notes/:id", async (req, res) => {
+    const id = req.params.id;
+    await orm.deleteNote(id);
+
+    res.send({ message: `Delete ${id}` });
+  });
+
+  app.get(`/api/calendar`, async (req, res) => {
+    console.log("working")
+    const data = await orm.getCalendar()
+    res.send(data)
+  });
 }
 
-module.exports = router
+
+
+module.exports = router;
