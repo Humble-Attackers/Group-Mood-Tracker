@@ -32,6 +32,11 @@ async function loadQuote() {
                 <button class="btn btn-light" onClick='deleteNote(${noteData.id})'>DELETE</button>
                 <button class="btn btn-light float-end d-none d-sm-block" onClick="submitForm(event)">SAVE</button>
                 `;
+      if (arr === 1) {document.getElementById("one").style.boxShadow = '0 0 0 3px black'}
+      else if ( arr === 2 ) {document.getElementById("two").style.boxShadow = '0 0 0 3px black'}
+      else if ( arr === 3 ) {document.getElementById("three").style.boxShadow = '0 0 0 3px black'}
+      else if ( arr === 4 ) {document.getElementById("four").style.boxShadow = '0 0 0 3px black'}
+      else if ( arr === 5 ) {document.getElementById("five").style.boxShadow = '0 0 0 3px black'}
     }
   }
 }
