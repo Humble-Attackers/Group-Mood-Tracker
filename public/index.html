@@ -92,85 +92,34 @@
 
                 const dbData = await fetch('/api/notes/calendar').then(r => r.json())
 
-                let startDate = new Date(Date.parse(dbData[0]["DATE(time)"]))
-               
-                startDate.setTime(startDate.getTime() + (4 * 60 * 60 * 1000))
-                const endDate = new Date()
-                const dateList = getDates(startDate, endDate)
-                // parse create date entries
-                for (let i = 0; i < dateList.length; i++) {
-                    let rawDate = dateList[i]
-                    let selectedMonth
-                    let formatDate
-                    if (rawDate.getMonth() < 9) {
-                        selectedMonth = `0${rawDate.getMonth() + 1}`
-                  
-                    } else {
-                        selectedMonth = `${rawDate.getMonth() + 1}`
-               
-                    }
-                    if (rawDate.getDate() < 10) {
-                        formatDate = `0${rawDate.getDate()}`
-                    } else {
-                        formatDate = `${rawDate.getDate()}`
-                    }
-                    let selectedDate = `${rawDate.getFullYear()}-` + selectedMonth + `-` + formatDate
-                    if (!usedDates.includes(selectedDate)) {
-                        dataArray.push({ "date": selectedDate, "value": 0, "amount": 0 })
-                    }
-               
-                }
+                let startDate = dbData[0]["DATE(time)"]
+                let currentDate = new Date()
+                let endDate = `${currentDate.getFullYear()}` + "/" + `${currentDate.getMonth() + 1}` + "/" + `${currentDate.getDate()}`
+
 
                 for (let i = 0; i < dbData.length; i++) {
-                    let processedDate = dbData[i]["DATE(time)"].substring(0, 10)
-                    console.log(processedDate)
-                    var desired = dataArray.find(element => element["date"] = processedDate)
-                    console.log(desired)
-                    if (desired) {
-                        desired.amount += 1
-                        desired.value += dbData[i].emotion
+                    if (usedDates.includes(dbData[i]["DATE(time)"])) {
+                        
+                    } else {
+                        dataArray.push({date: dbData[i]["DATE(time)"], value: dbData[i].emotion})
                     }
 
                 }
-                for (let i = 0; i < dataArray.length; i++) {
-                    if (dataArray[i].value !== 0){
-                        dataArray[i].value = dataArray[i].value / (dataArray[i].amount) 
-                    }
-                   
-             
-                }
+
+
 
                 var chart = JSC.chart('chartDiv', {
-                    debug: true,
-                    type: 'calendar solid',
-                    data: dataArray,
-                    palette: { colorBar_axis_scale_interval: 5 },
-                    calendar: {
-                        defaultEmptyPoint: {
-                            hatch: {
-                                style: 'wide-upward-diagonal',
-                                color: '#f0f0f0'
-                            },
-                            opacity: 0.5
-                        }
-                    },
-                    title: {
-                        label: {
-                            text: 'Car Sales January 2017',
-                            style_fontSize: 15
-                        }
-                    },
-                    yAxis_visible: false,
-                    defaultPoint: {
-                        label: { verticalAlign: 'top', padding: 3 },
-                        tooltip:
-                            '<b>{%date:date D}</b><br> %zValue cars sold'
-                    },
-                    defaultSeries_shape_innerPadding: 0.1
-                });
+                debug: true,
+                type: 'calendar month solid',
+                calendar_range: [startDate, endDate],
+                data: dataArray
 
-
+            });
             }
+
+
+
+            
             main()
 
 
