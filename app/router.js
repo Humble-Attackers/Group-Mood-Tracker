@@ -48,7 +48,7 @@ function router(app) {
   });
 
   app.get(`/api/calendar`, async (req, res) => {
-    console.log("working")
+  
     const data = await orm.getCalendar()
     res.send(data)
   });
