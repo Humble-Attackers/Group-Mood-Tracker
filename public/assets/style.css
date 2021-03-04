@@ -116,12 +116,34 @@ button {
     opacity: 70%;
 }
 
+/*  */
 #backgroundVD {
     position: fixed;
     left: 0;
     top: 0;
-    border: 2px solid red;
-    height: calc(100vh - 4px);
-    width: calc(100vw - 4px);
+    height: 100vh;
+    width: 100vw;
     background-size: cover;
+    z-index: -1;
 }
+
+#backgroundEntry {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    z-index: -1;
+}
+
+#backgroundRecents {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    z-index: -1;
+}
+
