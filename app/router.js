@@ -20,16 +20,16 @@ function router(app) {
 
   app.get(`/api/dates/:range`, async (req, res) => {
     let range = req.params.range;
-    const desiredData = await orm.getDesired( range )
+    const desiredData = await orm.getDesired(range)
 
     res.send(desiredData);
   });
 
   app.post("/api/notes", async (req, res) => {
     const noteData = req.body
-    await orm.postNote( noteData.emotion, noteData.title, noteData.note )
+    await orm.postNote(noteData.emotion, noteData.title, noteData.note)
 
-    res.send( { message: "Note Saved!"} );
+    res.send({ message: "Note Saved!" });
   });
 
   app.put("/api/notes/:id", async (req, res) => {
@@ -46,6 +46,14 @@ function router(app) {
 
     res.send({ message: `Delete ${id}` });
   });
+
+  app.get(`/api/calendar`, async (req, res) => {
+  
+    const data = await orm.getCalendar()
+    res.send(data)
+  });
 }
+
+
 
 module.exports = router;

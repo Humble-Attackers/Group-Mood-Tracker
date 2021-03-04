@@ -32,6 +32,11 @@ async function loadQuote() {
                 <button class="btn btn-light" onClick='deleteNote(${noteData.id})'>DELETE</button>
                 <button class="btn btn-light float-end d-none d-sm-block" onClick="submitForm(event)">SAVE</button>
                 `;
+      if (arr === 1) {document.getElementById("one").style.boxShadow = '0 0 0 3px black'}
+      else if ( arr === 2 ) {document.getElementById("two").style.boxShadow = '0 0 0 3px black'}
+      else if ( arr === 3 ) {document.getElementById("three").style.boxShadow = '0 0 0 3px black'}
+      else if ( arr === 4 ) {document.getElementById("four").style.boxShadow = '0 0 0 3px black'}
+      else if ( arr === 5 ) {document.getElementById("five").style.boxShadow = '0 0 0 3px black'}
     }
   }
 }
@@ -333,4 +338,79 @@ async function getDoughnutData(timeFrame) {
 async function main() {
   let initialChartData = await getDoughnutData("Past 7 Days");
   buildDoughnut(initialChartData);
+}
+
+/*---------------------------------*/
+/*----------Index PAGE-----------*/
+/*---------------------------------*/
+
+async function buildCalendar() {
+  const dataArray = []
+  const usedDates = []
+  const averages = []
+
+  const dbData = await fetch('/api/calendar').then(r => r.json())
+
+  let startDate = dbData[0]["DATE(time)"]
+  let currentDate = new Date()
+  let endDate = `${currentDate.getFullYear()}` + "/" + `${currentDate.getMonth() + 1}` + "/" + `${currentDate.getDate()}`
+
+
+  for (let i = 0; i < dbData.length; i++) {
+
+    dataArray.push([dbData[i]["DATE(time)"], dbData[i].emotion])
+    usedDates.push(dbData[i]["DATE(time)"])
+  }
+
+
+  var chart = JSC.chart('chartDiv', {
+    type: 'calendar month solid',
+    calendar_range: [startDate, endDate],
+    calendar_calculation: `average`,
+    data: dataArray,
+    palette: {
+      colors: [
+        `#FFFFFF`,
+        '#FF0000',
+        '#FFA500',
+        '#FFFF00',
+        '#00FF00',
+        '#0000FF'
+      ],
+      colorBar_axis_scale_interval: 1,
+    },
+    calendar: {
+      defaultEdgePoint: {
+        mouseTracking: false,
+        label_visible: false
+      },
+      defaultEmptyPoint: {
+        outline_width: 0,
+        opacity: 0.5,
+        legendEntry_visible: false
+      }
+    },
+    legend: {
+      title_label: {
+        text: '<b>Select Month</b>',
+        align: 'right',
+        style: { fontSize: '15px' }
+      },
+      defaultEntry: {
+        style: { fontSize: '12px' },
+        states_hidden_color: '#a5a5a5'
+      },
+      template: `%name`
+    },
+
+    defaultPoint: {
+      tooltip:
+        '<b>{%date:date D}</b><br> You felt like a %zValue out of 5',
+    },
+
+    yAxis_visible: false,
+    xAxis_line_visible: false,
+
+  }
+  );
 }
