@@ -7,7 +7,9 @@ let arr;
 function fetchJSON(url, method = "get", data = {}) {
   const fetchOptions = {
     method,
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json",
+               "Session": localStorage.session || ''
+    }
   };
   if (method === "post" || method === "put")
     fetchOptions.body = JSON.stringify(data);
