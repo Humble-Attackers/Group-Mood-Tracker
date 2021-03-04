@@ -1,10 +1,3 @@
-:root{
-    opacity: 100%;
-}
-#my_dataviz {
-    opacity: 100% !important;
-}
-
 #logo {
     width: 100px;
 }
@@ -37,8 +30,9 @@ logo {
 } */
 
 body {
-    font-family: 'Montserrat', sans-serif; 
-    height: 100%
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 h1 {
@@ -121,3 +115,35 @@ h5 {
 button {
     opacity: 70%;
 }
+
+/*  */
+#backgroundVD {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    z-index: -1;
+}
+
+#backgroundEntry {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    z-index: -1;
+}
+
+#backgroundRecents {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    z-index: -1;
+}
+
