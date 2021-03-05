@@ -17,5 +17,5 @@ app.use( express.static('public') )
 apiRouter(app)
 
 app.listen(PORT, function() {
-    console.log( `Serving app on: https://localhost:${PORT}` )
+    console.log( `Serving app on port ${PORT}` )
 })

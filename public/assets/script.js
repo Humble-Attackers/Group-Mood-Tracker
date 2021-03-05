@@ -5,11 +5,10 @@
 let arr;
 
 function fetchJSON(url, method = "get", data = {}) {
+
   const fetchOptions = {
     method,
-    headers: { "Content-Type": "application/json",
-               "Session": localStorage.session || ''
-    }
+    headers: { "Content-Type": "application/json" },
   };
   if (method === "post" || method === "put")
     fetchOptions.body = JSON.stringify(data);
@@ -131,6 +130,48 @@ async function submitForm(e) {
   location.href = "/recents.html";
 }
 
+async function signup(e) {
+  e.preventDefault();
+
+  const data = {
+    username: document.getElementById('username').value,
+    password: document.getElementById('password').value
+  }
+
+  const fetchOptions = {
+    method: 'POST',
+    headers: { "Content-Type": "application/json" }
+  }
+  fetchOptions.body = JSON.stringify(data)
+  console.log(fetchOptions.body)
+  await fetch('/signup', fetchOptions).then(r=>r.json())
+
+  location.href = "/"
+}
+
+async function signIn(e) {
+  e.preventDefault();
+
+  const data = {
+    username: document.getElementById('enteruse').value,
+    password: document.getElementById('enterpass').value
+  }
+
+  const fetchOptions = {
+    method: 'POST',
+    headers: { "Content-Type": "application/json" }
+  }
+  fetchOptions.body = JSON.stringify(data)
+  const identification = JSON.stringify(data.username)
+  console.log(identification)
+  await fetch('/login', fetchOptions).then(r=>r.json())
+
+  localStorage.setItem('id', JSON.stringify(identification))
+  const as = JSON.parse(localStorage.getItem('id'))
+  console.log(as)
+  location.href = "/"
+}
+
 /*---------------------------------*/
 /*----------RECENTS PAGE-----------*/
 /*---------------------------------*/
@@ -140,7 +181,15 @@ function editQuote(id) {
 }
 
 async function getList() {
-  const data = await fetch("/api/notes").then((r) => r.json());
+  pcUser = JSON.parse(localStorage.getItem("id"))
+  console.log(pcUser)
+
+  const fetchOptions = {
+    method: 'GET',
+    headers: { 'Content-type': 'application/json',
+                'Session':pcUser }
+  }
+  const data = await fetch("/api/notes", fetchOptions).then((r) => r.json());
 
 
 
@@ -148,8 +197,14 @@ async function getList() {
   data.map((r) => {
     document.getElementById("entrySlot").innerHTML += `
   <h3>${r.title}</h3>
-  <h3> ${r.note} </h3>
-  <button class="btn btn-primary" onclick=editQuote(${r.id})>edit</button>
+  <div class="container">
+    <div class="row justify-content-center">
+      <p style="max-width:70%">${r.note}</p>
+    </div>
+    <div class="row d-flex justify-content-center">
+      <button class="btn btn-primary my-2" style="width:77px" onclick=editQuote(${r.id})>edit</button>
+    </div>
+  </div>
   `;
   });
 }
