@@ -17,12 +17,10 @@ function fetchJSON(url, method = "get", data = {}) {
 
 async function loadQuote() {
   const id = location.hash.substr(1);
-  console.log(`[editNote] ${id}`);
   if (Number(id) > 0) {
     // load the data
     const noteData = await fetchJSON(`/api/notes/${id}`);
     if (noteData.id > 0) {
-      console.log(` ... noteData: `, noteData);
       // display the quote info
       arr = noteData.emotion;
       document.querySelector("#id").value = noteData.id;
@@ -144,8 +142,8 @@ async function getList() {
   if (date !== "") {
     document.getElementById("recents_subtitle").innerText = `Here is a list of your entries from ${date}`
     data = await fetch(`/api/list/${date}`).then(r => r.json())
-  
-    
+
+
   } else {
     data = await fetch("/api/notes").then((r) => r.json());
   }
