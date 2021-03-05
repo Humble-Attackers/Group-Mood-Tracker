@@ -142,8 +142,8 @@ async function getList() {
   const date = location.hash.substr(1);
   let data
   if (date !== "") {
-    let searchDate = location.hash.substr(2)
-    data = await fetch(`/api/list/${searchDate}`).then(r => r.json())
+    data = await fetch(`/api/list/${date}`).then(r => r.json())
+    document.getElementById("recents_subtitle").innerText = `Here is a list of your entries from ${date}`
     
   } else {
     data = await fetch("/api/notes").then((r) => r.json());
@@ -443,5 +443,5 @@ function viewDate() {
     formattedDay = `0${formattedDay}`
   }
   var formattedDate = `${unformattedDate.getFullYear()}-${formattedMonth}-${formattedDay}`
-  location.href = `/recents.html#d${formattedDate}`
+  location.href = `/recents.html#${formattedDate}`
 }
