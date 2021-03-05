@@ -141,7 +141,7 @@ async function getList() {
   data.map((r) => {
     document.getElementById("entrySlot").innerHTML += `
   <h3>${r.title}</h3>
-  <h3> ${r.note} </h3>
+  <h4> ${r.note} </h4>
   <button class="btn btn-primary" onclick=editQuote(${r.id})>edit</button>
   `;
   });

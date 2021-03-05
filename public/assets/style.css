@@ -112,6 +112,10 @@ h5 {
 
 #entrySlot {
     opacity: 70%;
+    color: rgb(119, 116, 108);
+    /*font-size: 70%*/
+    font-size: 0.8rem
+    
 }
 
 #entryForm {
@@ -120,4 +124,28 @@ h5 {
 
 button {
     opacity: 70%;
+    
+    
 }
+
+/*Recents Entry Page Template - Character Max Count/Lines Count*/
+
+.truncate {   
+    white-space: nowrap;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+  
+  }
+
+h4 {
+    padding: 20px;
+    font-size: 0.8rem;
+    margin: 0;
+    resize: horizontal;
+    display: grid;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    
+}
+  
