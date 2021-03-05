@@ -29,16 +29,17 @@ async function loadQuote() {
       document.querySelector("#title").value = noteData.title;
       document.querySelector("#note").value = noteData.note;
       document.querySelector("#newBtn").innerHTML = `
-                <button class="btn btn-light" onClick='deleteNote(${noteData.id})'>DELETE</button>
-                <button class="btn btn-light float-end d-none d-sm-block" onClick="submitForm(event)">SAVE</button>
-                `;
-      if (arr === 1) {document.getElementById("one").style.boxShadow = '0 0 0 3px black'}
-      else if ( arr === 2 ) {document.getElementById("two").style.boxShadow = '0 0 0 3px black'}
-      else if ( arr === 3 ) {document.getElementById("three").style.boxShadow = '0 0 0 3px black'}
-      else if ( arr === 4 ) {document.getElementById("four").style.boxShadow = '0 0 0 3px black'}
-      else if ( arr === 5 ) {document.getElementById("five").style.boxShadow = '0 0 0 3px black'}
+                  <button class="btn btn-light" onClick='deleteNote(${noteData.id})'>DELETE</button>
+                  <button class="btn btn-light float-end d-none d-sm-block" onClick="submitForm(event)">SAVE</button>
+                  `;
+      if (arr === 1) { document.getElementById("one").style.boxShadow = '0 0 0 3px black' }
+      else if (arr === 2) { document.getElementById("two").style.boxShadow = '0 0 0 3px black' }
+      else if (arr === 3) { document.getElementById("three").style.boxShadow = '0 0 0 3px black' }
+      else if (arr === 4) { document.getElementById("four").style.boxShadow = '0 0 0 3px black' }
+      else if (arr === 5) { document.getElementById("five").style.boxShadow = '0 0 0 3px black' }
     }
   }
+
 }
 
 async function deleteNote(id) {
@@ -138,11 +139,20 @@ function editQuote(id) {
 }
 
 async function getList() {
-  const data = await fetch("/api/notes").then((r) => r.json());
+  const date = location.hash.substr(1);
+  let data
+  if (date !== "") {
+    let searchDate = location.hash.substr(2)
+    data = await fetch(`/api/list/${searchDate}`).then(r => r.json())
+    
+  } else {
+    data = await fetch("/api/notes").then((r) => r.json());
+  }
 
 
 
-//   template list    //
+
+  //   template list    //
   data.map((r) => {
     document.getElementById("entrySlot").innerHTML += `
   <h3>${r.title}</h3>
@@ -344,6 +354,8 @@ async function main() {
 /*----------Index PAGE-----------*/
 /*---------------------------------*/
 
+
+// build calendar
 async function buildCalendar() {
   const dataArray = []
   const usedDates = []
@@ -406,6 +418,8 @@ async function buildCalendar() {
     defaultPoint: {
       tooltip:
         '<b>{%date:date D}</b><br> You felt like a %zValue out of 5',
+      events_click: viewDate
+
     },
 
     yAxis_visible: false,
@@ -413,4 +427,21 @@ async function buildCalendar() {
 
   }
   );
+}
+
+function viewDate() {
+  var point = this;
+  var clickedDate = point.tokenValue(`%date`)
+  var unformattedDate = new Date(clickedDate)
+  formattedMonth = unformattedDate.getMonth() + 1
+
+  if (formattedMonth.toString().length == 1) {
+    formattedMonth = `0${formattedMonth}`
+  }
+  formattedDay = unformattedDate.getDate()
+  if (formattedDay.toString().length == 1) {
+    formattedDay = `0${formattedDay}`
+  }
+  var formattedDate = `${unformattedDate.getFullYear()}-${formattedMonth}-${formattedDay}`
+  location.href = `/recents.html#d${formattedDate}`
 }

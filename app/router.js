@@ -52,6 +52,12 @@ function router(app) {
     const data = await orm.getCalendar()
     res.send(data)
   });
+
+  app.get(`/api/list/:date`, async (req, res) =>{
+    const date = req.params.date
+    const data = await orm.getDateData(date)
+    res.send(data)
+  })
 }
 
 
