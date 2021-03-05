@@ -142,8 +142,9 @@ async function getList() {
   const date = location.hash.substr(1);
   let data
   if (date !== "") {
-    data = await fetch(`/api/list/${date}`).then(r => r.json())
     document.getElementById("recents_subtitle").innerText = `Here is a list of your entries from ${date}`
+    data = await fetch(`/api/list/${date}`).then(r => r.json())
+  
     
   } else {
     data = await fetch("/api/notes").then((r) => r.json());
