@@ -11,7 +11,6 @@ function router(app) {
     const id = req.params.id;
     const notesData = await orm.getOne(id);
     if (notesData.length === 1) {
-      console.log(`[GET /api/quotes/${id}] notesData`, notesData);
       res.send(notesData[0]);
     } else {
       res.status(404).end();
@@ -48,10 +47,16 @@ function router(app) {
   });
 
   app.get(`/api/calendar`, async (req, res) => {
-  
+
     const data = await orm.getCalendar()
     res.send(data)
   });
+
+  app.get(`/api/list/:date`, async (req, res) => {
+    const date = req.params.date
+    const data = await orm.getDateData(date)
+    res.send(data)
+  })
 }
 
 
