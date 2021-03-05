@@ -32,8 +32,14 @@ async function loadQuote() {
                 <button class="btn btn-light" onClick='deleteNote(${noteData.id})'>DELETE</button>
                 <button class="btn btn-light float-end d-none d-sm-block" onClick="submitForm(event)">SAVE</button>
                 `;
+      if (arr === 1) { document.getElementById("one").style.boxShadow = '0 0 0 3px black' }
+      else if (arr === 2) { document.getElementById("two").style.boxShadow = '0 0 0 3px black' }
+      else if (arr === 3) { document.getElementById("three").style.boxShadow = '0 0 0 3px black' }
+      else if (arr === 4) { document.getElementById("four").style.boxShadow = '0 0 0 3px black' }
+      else if (arr === 5) { document.getElementById("five").style.boxShadow = '0 0 0 3px black' }
     }
   }
+
 }
 
 async function deleteNote(id) {
@@ -133,14 +139,42 @@ function editQuote(id) {
 }
 
 async function getList() {
-  const data = await fetch("/api/notes").then((r) => r.json());
+  const date = location.hash.substr(1);
+  let data
+  if (date !== "") {
+    document.getElementById("recents_subtitle").innerText = `Here is a list of your entries from ${date}`
+    data = await fetch(`/api/list/${date}`).then(r => r.json())
+  
+    
+  } else {
+    data = await fetch("/api/notes").then((r) => r.json());
+  }
 
 
 
-//   template list    //
+
+  //   template list    //
   data.map((r) => {
+    let emotionColour
+    switch (r.emotion) {
+      case 5:
+        emotionColour = "blue"
+        break
+      case 4:
+        emotionColour = "green"
+        break
+      case 3:
+        emotionColour = "yellow"
+        break
+      case 2:
+        emotionColour = "orange"
+        break
+      case 1:
+        emotionColour = "red"
+        break
+    }
     document.getElementById("entrySlot").innerHTML += `
-  <h3>${r.title}</h3>
+  <h3 style="border-left: 20px solid ${emotionColour}; border-right: 20px solid transparent ; margin-top: 10px">${r.title}</h3>
   <h4> ${r.note} </h4>
   <button class="btn btn-primary" onclick=editQuote(${r.id})>edit</button>
   `;
@@ -333,4 +367,100 @@ async function getDoughnutData(timeFrame) {
 async function main() {
   let initialChartData = await getDoughnutData("Past 7 Days");
   buildDoughnut(initialChartData);
+}
+
+/*---------------------------------*/
+/*----------Index PAGE-----------*/
+/*---------------------------------*/
+
+
+// build calendar
+async function buildCalendar() {
+  const dataArray = []
+  const usedDates = []
+  const averages = []
+
+  const dbData = await fetch('/api/calendar').then(r => r.json())
+
+  let startDate = dbData[0]["DATE(time)"]
+  let currentDate = new Date()
+  let endDate = `${currentDate.getFullYear()}` + "/" + `${currentDate.getMonth() + 1}` + "/" + `${currentDate.getDate()}`
+
+
+  for (let i = 0; i < dbData.length; i++) {
+
+    dataArray.push([dbData[i]["DATE(time)"], dbData[i].emotion])
+    usedDates.push(dbData[i]["DATE(time)"])
+  }
+
+
+  var chart = JSC.chart('chartDiv', {
+    type: 'calendar month solid',
+    calendar_range: [startDate, endDate],
+    calendar_calculation: `average`,
+    data: dataArray,
+    palette: {
+      colors: [
+        `#FFFFFF`,
+        '#FF0000',
+        '#FFA500',
+        '#FFFF00',
+        '#00FF00',
+        '#0000FF'
+      ],
+      colorBar_axis_scale_interval: 1,
+    },
+    calendar: {
+      defaultEdgePoint: {
+        mouseTracking: false,
+        label_visible: false
+      },
+      defaultEmptyPoint: {
+        outline_width: 0,
+        opacity: 0.5,
+        legendEntry_visible: false
+      }
+    },
+    legend: {
+      title_label: {
+        text: '<b>Select Month</b>',
+        align: 'right',
+        style: { fontSize: '15px' }
+      },
+      defaultEntry: {
+        style: { fontSize: '12px' },
+        states_hidden_color: '#a5a5a5'
+      },
+      template: `%name`
+    },
+
+    defaultPoint: {
+      tooltip:
+        '<b>{%date:date D}</b><br> You felt like a %zValue out of 5',
+      events_click: viewDate
+
+    },
+
+    yAxis_visible: false,
+    xAxis_line_visible: false,
+
+  }
+  );
+}
+
+function viewDate() {
+  var point = this;
+  var clickedDate = point.tokenValue(`%date`)
+  var unformattedDate = new Date(clickedDate)
+  formattedMonth = unformattedDate.getMonth() + 1
+
+  if (formattedMonth.toString().length == 1) {
+    formattedMonth = `0${formattedMonth}`
+  }
+  formattedDay = unformattedDate.getDate()
+  if (formattedDay.toString().length == 1) {
+    formattedDay = `0${formattedDay}`
+  }
+  var formattedDate = `${unformattedDate.getFullYear()}-${formattedMonth}-${formattedDay}`
+  location.href = `/recents.html#${formattedDate}`
 }

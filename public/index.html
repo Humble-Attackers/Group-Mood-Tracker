@@ -48,15 +48,18 @@
 
             <div class="row mt-3 m-5">
                 <div class="col-12 mt-5 pt-3 pt-5">
-                    <h1 class="text-center fs-6 fs-sm-3">MOOD TRACKER</h1>
+                    <h1 class="text-center fs-2">MOOD TRACKER</h1>
                 </div>
             </div>
         </div>
+        <div id="chartDiv" style="max-width: 600px;height: 280px;margin: 0px auto">
+        </div>
+
 
         <script src="https://unpkg.com/moment"></script>
-
         <script src="assets/package/vendor/three.r119.min.js"></script>
         <script src="assets/package/dist/vanta.clouds.min.js"></script>
+        <script src="https://code.jscharting.com/latest/jscharting.js"></script>
         <script>
             VANTA.CLOUDS({
                 el: "#background",
@@ -68,6 +71,12 @@
                 skyColor: 0xa2c8f2,
                 speed: 1.50
             })
+        </script>
+        <script src="./assets/script.js"></script>
+        <script>
+
+            buildCalendar()
+
         </script>
 </body>
 
