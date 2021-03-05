@@ -135,7 +135,6 @@ h4 {
     padding: 20px;
     font-size: 0.8rem;
     margin: 0;
-    resize: horizontal;
     display: grid;
     white-space: nowrap;
     overflow: hidden;
