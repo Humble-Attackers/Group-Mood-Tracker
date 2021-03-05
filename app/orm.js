@@ -32,4 +32,11 @@ function deleteNote( id ){
     return db.query( `DELETE FROM notes WHERE id='${id}'`)
 }
 
-module.exports = { getNotes, getOne, getDesired, signup, postNote, updateNote, deleteNote }
+function getCalendar( username ){
+    return db.query(`SELECT emotion, DATE(time) FROM notes WHERE user = '${username}' ORDER BY DATE(time) ASC`)
+}
+function getDateData( username, date ){
+    return db.query(`SELECT * FROM notes WHERE user = '${username}' AND DATE(time) = "${date}"`)
+}
+
+module.exports = { getNotes, getOne, getDesired, signup, postNote, updateNote, deleteNote, getCalendar, getDateData }

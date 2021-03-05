@@ -17,7 +17,6 @@ function router(app) {
     const id = req.params.id;
     const notesData = await orm.getOne(id);
     if (notesData.length === 1) {
-      console.log(`[GET /api/quotes/${id}] notesData`, notesData);
       res.send(notesData[0]);
     } else {
       res.status(404).end();
@@ -72,7 +71,7 @@ app.post('/login', async (req,res) => {
     const noteData = req.body
     await orm.postNote( noteData.emotion, noteData.title, noteData.note, noteData.username )
 
-    res.send( { message: "Note Saved!"} );
+    res.send({ message: "Note Saved!" });
   });
 
   app.put("/api/notes/:id", async (req, res) => {
@@ -89,6 +88,21 @@ app.post('/login', async (req,res) => {
 
     res.send({ message: `Delete ${id}` });
   });
+
+  app.get(`/api/calendar`, async (req, res) => {
+    const username = req.headers.session
+    const data = await orm.getCalendar( username )
+    res.send(data)
+  });
+
+  // app.get(`/api/list/:date`, async (req, res) => {
+  //   const username = req.headers.session
+  //   const date = req.params.date
+  //   const data = await orm.getDateData( username, date )
+  //   res.send(data)
+  // })
 }
+
+
 
 module.exports = router;

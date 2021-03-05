@@ -16,7 +16,7 @@
 </head>
 
 <body>
-  <bg id="backgroundRecents" class="fixed-top fixed-bottom">
+  <bg id="backgroundRecents"></bg>
     <logo class="fixed-top text-center mt-2"> MOOD TRACKER </logo>
 
     <script src="https://d3js.org/d3.v4.js"></script>
@@ -36,18 +36,19 @@
 
           <h1 class="mt-4 m-2 fs-2">RECENT ENTRIES</h1>
 
-          <h4 class="m-4 fw-light fs-6">Here is a list of your 7 most recent entries.</h4>
+          <h3 class="m-4 fw-light fs-6" id= "recents_subtitle">Here is a list of your 7 most recent entries.</h3>
 
           <div class="row d-flex justify-content-center">
 
             <!-- ENTRIES-->
             <div class="card my-2 w-75" id="entrySlot">
-          
+              <div class="card-body">
+                <hr>
+              </div>
             </div>
           </div>
         </div>
       </div>
-  </bg>
   <script src="assets/package/vendor/p5.min.js"></script>
   <script src="assets/package/dist/vanta.topology.min.js"></script>
   <script>
@@ -56,8 +57,8 @@
       mouseControls: true,
       touchControls: true,
       gyroControls: false,
-      minHeight: 200.00,
-      minWidth: 200.00,
+      minHeight: 1000,
+      minWidth: 1000,
       scale: 1.00,
       scaleMobile: 1.00,
       color: 0xf8fcfc,

@@ -1,20 +1,3 @@
-:root{
-    opacity: 100%;
-}
-#my_dataviz {
-    opacity: 100% !important;
-}
-
-#logo {
-    width: 100px;
-}
-
-logo {
-    letter-spacing: 6px;
-    font-size: 14px;
-    font-weight: lighter;
-}
-
 .list-group-item {
     position: relative;
     display: block;
@@ -37,8 +20,8 @@ logo {
 } */
 
 body {
-    font-family: 'Montserrat', sans-serif; 
-    height: 100%
+    font-family: 'Montserrat', sans-serif;
+    background-color:#87c0f0;
 }
 
 h1 {
@@ -112,6 +95,10 @@ h5 {
 
 #entrySlot {
     opacity: 70%;
+    color: rgb(119, 116, 108);
+    /*font-size: 70%*/
+    font-size: 0.8rem
+    
 }
 
 #entryForm {
@@ -120,4 +107,80 @@ h5 {
 
 button {
     opacity: 70%;
+    
+    
 }
+
+/*Recents Entry Page Template - Character Max Count/Lines Count*/
+
+.truncate {   
+    white-space: nowrap;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+  
+  }
+
+h4 {
+    padding: 20px;
+    font-size: 0.8rem;
+    margin: 0;
+    display: grid;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    
+}
+  
+/*  */
+#backgroundVD {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    z-index: -1;
+}
+
+#backgroundEntry {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    z-index: -1;
+}
+
+#backgroundRecents {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    z-index: -1;
+}
+
+#background {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    z-index: -1;
+
+}
+
+#calendar {
+    /* position: relative; */
+    margin-top: 125px;
+    margin-bottom: 100px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+
