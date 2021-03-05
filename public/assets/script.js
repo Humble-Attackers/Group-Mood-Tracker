@@ -139,7 +139,6 @@ function editQuote(id) {
 
 async function getList() {
   const data = await fetch("/api/notes").then((r) => r.json());
- 
 
 
 
