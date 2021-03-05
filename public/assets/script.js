@@ -29,9 +29,9 @@ async function loadQuote() {
       document.querySelector("#title").value = noteData.title;
       document.querySelector("#note").value = noteData.note;
       document.querySelector("#newBtn").innerHTML = `
-                  <button class="btn btn-light" onClick='deleteNote(${noteData.id})'>DELETE</button>
-                  <button class="btn btn-light float-end d-none d-sm-block" onClick="submitForm(event)">SAVE</button>
-                  `;
+                <button class="btn btn-light" onClick='deleteNote(${noteData.id})'>DELETE</button>
+                <button class="btn btn-light float-end d-none d-sm-block" onClick="submitForm(event)">SAVE</button>
+                `;
       if (arr === 1) { document.getElementById("one").style.boxShadow = '0 0 0 3px black' }
       else if (arr === 2) { document.getElementById("two").style.boxShadow = '0 0 0 3px black' }
       else if (arr === 3) { document.getElementById("three").style.boxShadow = '0 0 0 3px black' }
@@ -155,8 +155,26 @@ async function getList() {
 
   //   template list    //
   data.map((r) => {
+    let emotionColour
+    switch (r.emotion) {
+      case 5:
+        emotionColour = "blue"
+        break
+      case 4:
+        emotionColour = "green"
+        break
+      case 3:
+        emotionColour = "yellow"
+        break
+      case 2:
+        emotionColour = "orange"
+        break
+      case 1:
+        emotionColour = "red"
+        break
+    }
     document.getElementById("entrySlot").innerHTML += `
-  <h3>${r.title}</h3>
+  <h3 style="border-left: 20px solid ${emotionColour}; border-right: 20px solid transparent ; margin-top: 10px">${r.title}</h3>
   <h3> ${r.note} </h3>
   <button class="btn btn-primary" onclick=editQuote(${r.id})>edit</button>
   `;
