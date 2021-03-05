@@ -1,6 +1,5 @@
 const orm = require("./orm");
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken')
 require( 'dotenv' ).config()
 const db = require( './connection' )(process.env.DB_NAME,process.env.DB_PWD)
 
@@ -9,9 +8,7 @@ const db = require( './connection' )(process.env.DB_NAME,process.env.DB_PWD)
 function router(app) {
   app.get("/api/notes", async (req, res) => {
     const thing = req.headers.session
-    const data = await db.query(`SELECT notes.emotion, notes.title, notes.note FROM notes LEFT JOIN userSchema ON userSchema_username = userSchema.username`)
-    console.log(req.headers.session)
-    // const data = await orm.getNotes(thing);
+    const data = await orm.getNotes(thing);
 
     res.send(data);
   });
@@ -29,7 +26,8 @@ function router(app) {
 
   app.get(`/api/dates/:range`, async (req, res) => {
     let range = req.params.range;
-    const desiredData = await orm.getDesired( range )
+    let username = req.headers.session
+    const desiredData = await orm.getDesired( username, range )
 
     res.send(desiredData);
   });
@@ -66,28 +64,13 @@ app.post('/login', async (req,res) => {
       if (result) { console.log('Success')
       console.log(req.body.username)
                     res.send({message:'auth successful!'})}
-    //     const token = jwt.sign(
-    //       {username: data[0], userId: data[0].id},
-    //       process.env.JWT_KEY,
-    //       {
-    //         expiresIn: "1h"
-    //       },
-    //       )
-    //     return res.status(200).json({
-    //       message: 'Auth successful',
-    //       token: token
-    //   })
-    //   } else {
-    //     return res.status(401).json({
-    //       message: 'Auth failed'})
-    //   }
     })
   })
 
 
   app.post("/api/notes", async (req, res) => {
     const noteData = req.body
-    await orm.postNote( noteData.emotion, noteData.title, noteData.note )
+    await orm.postNote( noteData.emotion, noteData.title, noteData.note, noteData.username )
 
     res.send( { message: "Note Saved!"} );
   });

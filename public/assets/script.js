@@ -1,3 +1,14 @@
+
+/*---------------------------------*/
+/*--------------ON LOAD------------*/
+/*---------------------------------*/
+
+let pcUser;
+
+if (JSON.parse(localStorage.getItem("id")) !== null) {
+  pcUser = JSON.parse(localStorage.getItem("id"));
+}
+
 /*---------------------------------*/
 /*-----------ENTRY PAGE------------*/
 /*---------------------------------*/
@@ -8,7 +19,8 @@ function fetchJSON(url, method = "get", data = {}) {
 
   const fetchOptions = {
     method,
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json",
+              'session':pcUser },
   };
   if (method === "post" || method === "put")
     fetchOptions.body = JSON.stringify(data);
@@ -18,12 +30,10 @@ function fetchJSON(url, method = "get", data = {}) {
 
 async function loadQuote() {
   const id = location.hash.substr(1);
-  console.log(`[editNote] ${id}`);
   if (Number(id) > 0) {
     // load the data
     const noteData = await fetchJSON(`/api/notes/${id}`);
     if (noteData.id > 0) {
-      console.log(` ... noteData: `, noteData);
       // display the quote info
       arr = noteData.emotion;
       document.querySelector("#id").value = noteData.id;
@@ -116,13 +126,14 @@ function push5() {
 
 async function submitForm(e) {
   e.preventDefault();
-
+  
   const id = document.getElementById("id").value;
 
   const noteData = {
     emotion: arr,
     title: document.getElementById("title").value,
     note: document.getElementById("note").value,
+    username: pcUser
   };
 
   await fetchJSON(`/api/notes/${id}`, id ? "put" : "post", noteData);
@@ -162,13 +173,12 @@ async function signIn(e) {
     headers: { "Content-Type": "application/json" }
   }
   fetchOptions.body = JSON.stringify(data)
-  const identification = JSON.stringify(data.username)
-  console.log(identification)
+  const identification = data.username
+
   await fetch('/login', fetchOptions).then(r=>r.json())
 
   localStorage.setItem('id', JSON.stringify(identification))
-  const as = JSON.parse(localStorage.getItem('id'))
-  console.log(as)
+
   location.href = "/"
 }
 
@@ -181,13 +191,11 @@ function editQuote(id) {
 }
 
 async function getList() {
-  pcUser = JSON.parse(localStorage.getItem("id"))
-  console.log(pcUser)
 
   const fetchOptions = {
     method: 'GET',
     headers: { 'Content-type': 'application/json',
-                'Session':pcUser }
+                'Session': pcUser }
   }
   const data = await fetch("/api/notes", fetchOptions).then((r) => r.json());
 
@@ -369,6 +377,13 @@ async function updateChart() {
   }
 }
 async function getDoughnutData(timeFrame) {
+
+  const fetchOptions = {
+    method: 'GET',
+    headers: { 'Content-type': 'application/json',
+              'session': pcUser }
+  }
+
   let range;
   switch (timeFrame) {
     case "Past 7 Days":
@@ -384,7 +399,7 @@ async function getDoughnutData(timeFrame) {
       range = 7;
       break;
   }
-  let returnedData = await fetch(`/api/dates/${range}`).then((r) => r.json());
+  let returnedData = await fetch(`/api/dates/${range}`, fetchOptions).then((r) => r.json());
   let doughnutData = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
   for (let i = 0; i < returnedData.length; i++) {
     doughnutData[returnedData[i].emotion] += 1;
