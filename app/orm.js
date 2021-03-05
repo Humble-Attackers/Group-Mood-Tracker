@@ -31,5 +31,8 @@ function deleteNote( id ){
 function getCalendar(){
     return db.query("SELECT emotion, DATE(time) FROM  notes ORDER BY DATE(time) ASC")
 }
+function getDateData(date){
+    return db.query(`Select * from notes where DATE(time) = "${date}"`)
+}
 
-module.exports = { getNotes, getOne, getDesired, postNote, updateNote, deleteNote, getCalendar }
+module.exports = { getNotes, getOne, getDesired, postNote, updateNote, deleteNote, getCalendar, getDateData }

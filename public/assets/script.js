@@ -39,6 +39,7 @@ async function loadQuote() {
       else if (arr === 5) { document.getElementById("five").style.boxShadow = '0 0 0 3px black' }
     }
   }
+
 }
 
 async function deleteNote(id) {
@@ -138,7 +139,17 @@ function editQuote(id) {
 }
 
 async function getList() {
-  const data = await fetch("/api/notes").then((r) => r.json());
+  const date = location.hash.substr(1);
+  let data
+  if (date !== "") {
+    document.getElementById("recents_subtitle").innerText = `Here is a list of your entries from ${date}`
+    data = await fetch(`/api/list/${date}`).then(r => r.json())
+  
+    
+  } else {
+    data = await fetch("/api/notes").then((r) => r.json());
+  }
+
 
 
 
@@ -362,6 +373,8 @@ async function main() {
 /*----------Index PAGE-----------*/
 /*---------------------------------*/
 
+
+// build calendar
 async function buildCalendar() {
   const dataArray = []
   const usedDates = []
@@ -424,6 +437,8 @@ async function buildCalendar() {
     defaultPoint: {
       tooltip:
         '<b>{%date:date D}</b><br> You felt like a %zValue out of 5',
+      events_click: viewDate
+
     },
 
     yAxis_visible: false,
@@ -431,4 +446,21 @@ async function buildCalendar() {
 
   }
   );
+}
+
+function viewDate() {
+  var point = this;
+  var clickedDate = point.tokenValue(`%date`)
+  var unformattedDate = new Date(clickedDate)
+  formattedMonth = unformattedDate.getMonth() + 1
+
+  if (formattedMonth.toString().length == 1) {
+    formattedMonth = `0${formattedMonth}`
+  }
+  formattedDay = unformattedDate.getDate()
+  if (formattedDay.toString().length == 1) {
+    formattedDay = `0${formattedDay}`
+  }
+  var formattedDate = `${unformattedDate.getFullYear()}-${formattedMonth}-${formattedDay}`
+  location.href = `/recents.html#${formattedDate}`
 }
