@@ -33,36 +33,47 @@ function router(app) {
 
 //user sign-up
 app.post('/signup', async (req,res) => {
-  await bcrypt.hash(req.body.password, 10, async (err,hash) => {
-      if (err) {
-          return res.status(500).json({
-              error: err
-          })
-      } else {
-          await orm.signup(req.body.username, hash)
-      }
-  })
-  res.send( { message: "Signup successful!"} );
+const pass = req.body.password
+const name = req.body.username
+const data = await db.query(`SELECT * FROM userSchema WHERE username = '${name}'`)
+  if ( data.length < 1 ){
+    if ( pass.length > 3 && name.length > 2 ){
+      await bcrypt.hash(pass, 10, async (err,hash) => {
+          if (err) {
+              return res.status(500).json({
+                  error: err
+              })
+          } else {
+              await orm.signup(req.body.username, hash)
+          }
+      })
+      res.send( { message: "Signup successful!"} );
+    } else if ( pass.length < 4 ){
+      res.status(401).json('Too short!')
+    } else if ( name.length < 3 ){
+      res.status(401).json('3 or more!')
+    }
+  } else {
+    return res.status(401).json('Already taken!')
+  }
 })
 
+
 //user sign-in
-app.post('/login', async (req,res) => {
+app.post('/login', async ( req, res ) => {
   const data = await db.query(`SELECT * FROM userSchema WHERE username = '${req.body.username}'`)
 
     if (data.length < 1){
-      return res.status(401).json({
-        message: 'Auth failed'
-      })
+      return res.status(401).json('No such being!')
     }
     
     bcrypt.compare(req.body.password, data[0].password, (err,result) => {
-      if (err) {
-        throw err
-       
-      }
       if (result) { console.log('Success')
-      console.log(req.body.username)
-                    res.send({message:'auth successful!'})}
+                    console.log(req.body.username)
+                    res.send({message:'Auth successful!'})
+      } else {
+        return res.status(401).json('Try again!')
+      }
     })
   })
 
@@ -95,12 +106,12 @@ app.post('/login', async (req,res) => {
     res.send(data)
   });
 
-  app.get(`/api/list/:date`, async (req, res) => {
-    const username = req.headers.session
-    const date = req.params.date
-    const data = await orm.getDateData( username, date )
-    res.send(data)
-  })
+  // app.get(`/api/list/:date`, async (req, res) => {
+  //   const username = req.headers.session
+  //   const date = req.params.date
+  //   const data = await orm.getDateData( username, date )
+  //   res.send(data)
+  // })
 }
 
 

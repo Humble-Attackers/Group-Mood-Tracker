@@ -3,7 +3,7 @@ const db = require( './connection' )(process.env.DB_NAME,process.env.DB_PWD)
 
 
 function getNotes( username ){
-    return db.query(`SELECT * FROM notes WHERE user = '${username}'`)
+    return db.query(`SELECT * FROM notes WHERE user = '${username}' ORDER BY time DESC`)
 }
 
 function getOne( id='' ){
@@ -36,7 +36,7 @@ function getCalendar( username ){
     return db.query(`SELECT emotion, DATE(time) FROM notes WHERE user = '${username}' ORDER BY DATE(time) ASC`)
 }
 function getDateData( username, date ){
-    return db.query(`SELECT * FROM notes WHERE user = '${username}' AND DATE(time) = "${date}"`)
+    return db.query(`SELECT * FROM notes WHERE user = '${username}' AND time > DATE(NOW()) - INTERVAL ${date} DAY`)
 }
 
 module.exports = { getNotes, getOne, getDesired, signup, postNote, updateNote, deleteNote, getCalendar, getDateData }

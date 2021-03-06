@@ -29,16 +29,16 @@
                 
                 <div class="container d-flex justify-content-center">
                   <form>
-                    <div class="mb-3">
+                    <div class="mb-3" id='heroo'>
                       <label for="enteruse" class="form-label">Username</label>
                       <input class="form-control" id="enteruse">
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3" id='again'>
                       <label for="enterpass" class="form-label">Password</label>
                       <input type="password" class="form-control" id="enterpass">
                     </div>
-                    <a href="sign.html">Sign up</a>
-                    <button type="submit" class="btn btn-primary float-end" onclick="signIn(event)">Log in</button>
+                    <a class="signup" href="sign.html">Sign up</a>
+                    <button class="btn btn-primary float-end" onclick="signIn(event)">Log in</button>
                   </form>
                   </div>
 
@@ -51,8 +51,8 @@
 
         <div class="navbar">
             <div class="container-fluid d-flex justify-content-end">
-            <p style="margin:0; position:absolute; left: 50%; top:0 ;transform: translateX(-50%)">MOOD TRACKER</p>
-            <div id="theBtn">
+                <p id="moodtracker">MOOD TRACKER</p>
+                <div id="theBtn">
                 <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Log in
                 </button>

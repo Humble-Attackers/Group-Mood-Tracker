@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <link
@@ -22,24 +23,34 @@
 
 <body>
   
+
+  <div class="navbar navbar-light">
+    <a class="navbar-brand ms-4" href="index.html"><i class="fas fa-chevron-left"></i></a>
+  </div>
+
   <div class="row mt-3 m-5">
     <div class="col-12 mt-5 pt-3 pt-5">
         <h1 class="text-center fs-2">MOOD TRACKER</h1>
     </div>
   </div>
   
-  <div class="container mt-5 d-flex justify-content-center">
+  <div class="container my-5 d-flex justify-content-center">
     <form>
-      <div class="mb-3">
+      <div class="mb-3" id="taken">
         <label for="username" class="form-label">Username</label>
         <input class="form-control" id="username">
       </div>
-      <div class="mb-3">
+      <div class="mb-3" id="tooShort">
         <label for="password" class="form-label">Password</label>
         <input type="password" class="form-control" id="password">
       </div>
-      <button type="submit" class="btn btn-primary" onclick="signup(event)">Sign up</button>
+      <button class="btn btn-primary" onclick="signup(event)">Sign up</button>
     </form>
+  </div>
+  <div class="container mt-5 text-center" id="disclaimer" style="color:red">
+    <h5>Disclaimer! This site is NOT secure</h5>
+    <br>
+    <h5>Do NOT enter sensitive information</h5>
   </div>
   
   <div id="background"></div>

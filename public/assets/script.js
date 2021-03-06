@@ -3,17 +3,27 @@
 /*--------------ON LOAD------------*/
 /*---------------------------------*/
 
-let pcUser;
+let pcUser = '';
 
 if (JSON.parse(localStorage.getItem("id")) !== null) {
   pcUser = JSON.parse(localStorage.getItem("id"));
+  document.querySelector('#theBtn').innerHTML = `
+  <button class="btn float-end" onclick="logout()">
+    Log out
+  </button>
+  `
+}
+
+function logout(){
+  localStorage.removeItem('id')
+  location.href = '/'
 }
 
 /*---------------------------------*/
 /*-----------ENTRY PAGE------------*/
 /*---------------------------------*/
 
-let arr;
+let arr = -1;
 
 function fetchJSON(url, method = "get", data = {}) {
 
@@ -129,17 +139,29 @@ async function submitForm(e) {
   e.preventDefault();
   
   const id = document.getElementById("id").value;
+  const first = document.getElementById("title").value
+  const second = document.getElementById("note").value
 
   const noteData = {
     emotion: arr,
-    title: document.getElementById("title").value,
-    note: document.getElementById("note").value,
+    title: first,
+    note: second,
     username: pcUser
   };
 
-  await fetchJSON(`/api/notes/${id}`, id ? "put" : "post", noteData);
+  if ( pcUser.length < 1 ){
+    document.querySelector('#logFirst').style.display = 'block'
+  } else if ( arr === -1 ){
+    document.querySelector('#least').style.display = 'block'
+  } else if ( first.length > 100 ){
+    document.querySelector('#max1').style.display = 'block'
+  } else if ( second.length > 1000 ){
+    document.querySelector('#max2').style.display = 'block'
+  } else {
+    await fetchJSON(`/api/notes/${id}`, id ? "put" : "post", noteData);
 
   location.href = "/recents.html";
+  }
 }
 
 async function signup(e) {
@@ -155,10 +177,27 @@ async function signup(e) {
     headers: { "Content-Type": "application/json" }
   }
   fetchOptions.body = JSON.stringify(data)
-  console.log(fetchOptions.body)
-  await fetch('/signup', fetchOptions).then(r=>r.json())
 
-  location.href = "/"
+  const result = await fetch('/signup', fetchOptions).then(r=>r.json())
+ 
+  if (result === 'Already taken!'){
+    document.querySelector('#taken').innerHTML = `
+      <label for="username" class="form-label">Username</label>
+      <input class="form-control" id="username" placeholder="Already taken!">
+    `
+  } else if ( result === 'Too short!' ){
+    document.querySelector('#tooShort').innerHTML = `
+    <label for="password" class="form-label">Password</label>
+    <input type="password" class="form-control" id="password" placeholder="Minimum 4 characters">
+    `
+  } else if ( result === '3 or more!'){
+    document.querySelector('#taken').innerHTML = `
+    <label for="username" class="form-label">Username</label>
+    <input class="form-control" id="username" placeholder="Minimum of 3 characters!">
+    `
+  } else {
+    location.href = "/"
+  }
 }
 
 async function signIn(e) {
@@ -174,13 +213,26 @@ async function signIn(e) {
     headers: { "Content-Type": "application/json" }
   }
   fetchOptions.body = JSON.stringify(data)
-  const identification = data.username
-
-  await fetch('/login', fetchOptions).then(r=>r.json())
-
-  localStorage.setItem('id', JSON.stringify(identification))
   
-  location.href = "/"
+
+  const result = await fetch('/login', fetchOptions).then(r=>r.json())
+  console.log(result)
+
+  if (result === 'No such being!'){
+    document.querySelector('#heroo').innerHTML = `
+    <label for="enteruse" class="form-label">Username</label>
+    <input class="form-control" id="enteruse" placeholder="No such being!">
+    `
+  } else if (result === 'Try again!'){
+    document.querySelector('#again').innerHTML = `
+    <label for="enterpass" class="form-label">Password</label>
+    <input type="password" class="form-control" id="enterpass" placeholder="Try again!">
+    `
+  } else {
+    const identification = data.username
+    localStorage.setItem('id', JSON.stringify(identification))
+    location.href = "/"
+  }
 }
 
 /*---------------------------------*/
@@ -222,11 +274,20 @@ async function getList() {
       case 1:
         emotionColour = "red"
         break
+      default:
+        emotionColour = "grey"
     }
     document.getElementById("entrySlot").innerHTML += `
-  <h3 style="border-left: 20px solid ${emotionColour}; border-right: 20px solid transparent ; margin-top: 10px">${r.title}</h3>
-  <h4> ${r.note} </h4>
-  <button class="btn btn-primary" onclick=editQuote(${r.id})>edit</button>
+    <div class="card-body d-flex">
+      <tr>
+    <div style="width:7px; height:100%; background-color: ${emotionColour};">
+      </div>
+      <div class="container text-center" style="width:80%;">
+        <h3 style="color:black; opacity:.69">${r.title}</h3>
+        <p class="truncate">${r.note}</p>
+        <button class="btn btn-primary my-2" style="width:77px" onclick=editQuote(${r.id})>edit</button>
+      </div>
+    </div>
   `;
   });
 }
@@ -367,18 +428,18 @@ function buildDoughnut(data) {
 function updateTime(newText) {
   document.getElementById("timeDropdown").innerText = newText;
 }
-function updateType(newText) {
-  document.getElementById("typeDropdown").innerText = newText;
-}
+// function updateType(newText) {
+//   document.getElementById("typeDropdown").innerText = newText;
+// }
 
 // get values in dropdowns and make API to get necessary data to create chart
 async function updateChart() {
   let timeFrame = document.getElementById("timeDropdown").innerText;
-  let chartType = document.getElementById("typeDropdown").innerText;
+  // let chartType = document.getElementById("typeDropdown").innerText;
   // check if dropdowns have been changed before doing anyting
-  if (chartType !== "What Type of Chart?" && timeFrame !== "How Many Days?") {
+  // if (chartType !== "What Type of Chart?" && timeFrame !== "How Many Days?") {
     // do server stuff here
-    if (chartType == "Doughnut Graph") {
+    // if (chartType == "Doughnut Graph") {
       // vvvvvvvvvvv IMPLEMENT CALL TO SERVER HERE vvvvvvvvvvvvv
       let doughnutData = await getDoughnutData(timeFrame);
       // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -387,8 +448,8 @@ async function updateChart() {
         "graph_title"
       ).innerText = `Mood For the ${timeFrame}`;
       buildDoughnut(doughnutData);
-    }
-  }
+    // }
+  // }
 }
 async function getDoughnutData(timeFrame) {
 

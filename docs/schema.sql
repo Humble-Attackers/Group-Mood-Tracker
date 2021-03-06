@@ -7,7 +7,7 @@ CREATE TABLE notes (
 	id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     emotion INT,
     title VARCHAR(100),
-    note VARCHAR(400),
+    note VARCHAR(1000),
     user VARCHAR(50),
     time TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
 );
