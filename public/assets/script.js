@@ -179,7 +179,7 @@ async function signIn(e) {
   await fetch('/login', fetchOptions).then(r=>r.json())
 
   localStorage.setItem('id', JSON.stringify(identification))
-
+  
   location.href = "/"
 }
 

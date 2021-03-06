@@ -95,12 +95,12 @@ app.post('/login', async (req,res) => {
     res.send(data)
   });
 
-  // app.get(`/api/list/:date`, async (req, res) => {
-  //   const username = req.headers.session
-  //   const date = req.params.date
-  //   const data = await orm.getDateData( username, date )
-  //   res.send(data)
-  // })
+  app.get(`/api/list/:date`, async (req, res) => {
+    const username = req.headers.session
+    const date = req.params.date
+    const data = await orm.getDateData( username, date )
+    res.send(data)
+  })
 }
 
 
