@@ -50,8 +50,8 @@ async function loadQuote() {
       document.querySelector("#title").value = noteData.title;
       document.querySelector("#note").value = noteData.note;
       document.querySelector("#newBtn").innerHTML = `
-                <button class="btn btn-light" onClick='deleteNote(${noteData.id})'>DELETE</button>
-                <button class="btn btn-light float-end d-none d-sm-block" onClick="submitForm(event)">SAVE</button>
+                <button class="btn btn-light mb-5" onClick='deleteNote(${noteData.id})'>DELETE</button>
+                <button class="btn btn-light mb-5 float-end" onClick="submitForm(event)">SAVE</button>
                 `;
       if (arr === 1) { document.getElementById("one").style.boxShadow = '0 0 0 3px black' }
       else if (arr === 2) { document.getElementById("two").style.boxShadow = '0 0 0 3px black' }
