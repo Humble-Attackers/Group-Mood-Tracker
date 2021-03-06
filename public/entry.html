@@ -19,18 +19,51 @@
 </head>
 
 <body>
-  <div id="backgroundEntry"></div>
-    <logo class="fixed-top text-center"> MOOD TRACKER </logo>
+  
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Log in</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            
+            <div class="container d-flex justify-content-center">
+              <form>
+                <div class="mb-3" id='heroo'>
+                  <label for="enteruse" class="form-label">Username</label>
+                  <input class="form-control" id="enteruse">
+                </div>
+                <div class="mb-3" id='again'>
+                  <label for="enterpass" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="enterpass">
+                </div>
+                <a class="signup" href="sign.html">Sign up</a>
+                <button class="btn btn-primary float-end" onclick="signIn(event)">Log in</button>
+              </form>
+              </div>
 
-    <nav class="navbar navbar-light">
-      <div class="container-fluid">
-        <a class="navbar-brand ps-4" href="index.html"><i class="fas fa-chevron-left"></i></a>
-        <button class="btn btn-light me-2 d-sm-none">SAVE</button>
+        </div>
       </div>
-    </nav>
+    </div>
+  </div>
+
+  <div id="backgroundEntry"></div>
+
+  <div class="navbar navbar-light">
+    <a class="navbar-brand ms-4" href="index.html"><i class="fas fa-chevron-left"></i></a>
+    <p id="moodtracker">MOOD TRACKER</p>
+    <div id="theBtn">
+      <button type="button" class="btn me-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Log in
+      </button>
+    </div>
+  </div>
 
     <h5 class="text-center mt-5 mb-0">HOW DO YOU FEEL TODAY?</h5>
-
+    <br>
+    <h6 style="display:none; position:absolute; left:50%; transform:translateX(-50%); color:red" id="least">Must select an emotion</h6>
     <nav class="navbar navbar-light mid mt-4" style="height:10px;">
       <div class="container text-center">
         <div class="container text-nowrap">
@@ -61,6 +94,10 @@
         </div>
       </div>
     </nav>
+    <h6 class="max" id="max1">Title limit is 100 characters</h6>
+    <br>
+    <h6 class="max" id="max2">Note limit is 1000 characters</h6>
+    <br>
     <form>
       <input name="id" id="id" type="hidden" value="" />
 
@@ -73,8 +110,9 @@
         </div>
       </div>
     </form>
+    <h6 style="display:none; position:absolute; left:50%; transform:translateX(-50%); color:red" id="logFirst">Must be logged in</h6>
     <div class="container px-5 conNote" id="newBtn">
-      <button class="btn btn-light float-end d-none d-sm-block" onClick="submitForm(event)">SAVE</button>
+      <button class="btn btn-light float-end mb-5" onClick="submitForm(event)">SAVE</button>
     </div>
   <script src="assets/package/vendor/three.r119.min.js"></script>
   <script src="assets/package/dist/vanta.fog.min.js"></script>
@@ -92,6 +130,8 @@
       baseColor: 0xffd7cb
     })
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
   <script src="assets/script.js"></script>
   <script>
     loadQuote()

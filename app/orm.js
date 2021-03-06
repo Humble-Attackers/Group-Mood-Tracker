@@ -2,21 +2,25 @@ const db = require( './connection' )(process.env.DB_NAME,process.env.DB_PWD)
 
 
 
-function getNotes(){
-    return db.query('SELECT * FROM notes')
+function getNotes( username ){
+    return db.query(`SELECT * FROM notes WHERE user = '${username}' ORDER BY time DESC`)
 }
 
 function getOne( id='' ){
     return db.query( "SELECT * FROM notes"+( id ? ` WHERE id='${id}'` : '' ) )
 }
 
-function getDesired( range ){
-    return db.query(`SELECT * FROM notes WHERE TIMESTAMPDIFF(day,time,CURRENT_TIMESTAMP) between 0 and ${range}`)
+function getDesired( username, range ){
+    return db.query(`SELECT * FROM notes WHERE user = '${username}' AND TIMESTAMPDIFF(day,time,CURRENT_TIMESTAMP) between 0 and ${range}`)
 }
 
-function postNote( emotion, title, note ){
-    return db.query('INSERT INTO notes (emotion, title, note) VALUES (?,?,?)',
-    [emotion, title, note])
+function signup( username, hash ){
+    return db.query('INSERT INTO userSchema (username, password) VALUES (?,?)', [username, hash])
+}
+
+function postNote( emotion, title, note, username ){
+    return db.query('INSERT INTO notes (emotion, title, note, user) VALUES (?,?,?,?)',
+    [emotion, title, note, username])
 }
 
 function updateNote( emotion, title, note, id ){
@@ -28,11 +32,11 @@ function deleteNote( id ){
     return db.query( `DELETE FROM notes WHERE id='${id}'`)
 }
 
-function getCalendar(){
-    return db.query("SELECT emotion, DATE(time) FROM  notes ORDER BY DATE(time) ASC")
+function getCalendar( username ){
+    return db.query(`SELECT emotion, DATE(time) FROM notes WHERE user = '${username}' ORDER BY DATE(time) ASC`)
 }
-function getDateData(date){
-    return db.query(`Select * from notes where DATE(time) = "${date}"`)
+function getDateData( username, date ){
+    return db.query(`SELECT * FROM notes WHERE user = '${username}' AND time > DATE(NOW()) - INTERVAL ${date} DAY`)
 }
 
-module.exports = { getNotes, getOne, getDesired, postNote, updateNote, deleteNote, getCalendar, getDateData }
+module.exports = { getNotes, getOne, getDesired, signup, postNote, updateNote, deleteNote, getCalendar, getDateData }

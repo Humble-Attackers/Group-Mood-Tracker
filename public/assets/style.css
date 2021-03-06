@@ -28,6 +28,24 @@ h1 {
     letter-spacing: 6px;
 }
 
+#moodtracker {
+    margin: 0; 
+    position: absolute; 
+    left: 50%; 
+    top: 0;
+    transform: translateX(-50%)
+}
+
+.signup {
+    color: black;
+    text-decoration: none;
+    opacity:0.85
+}
+.signup:hover {
+    opacity:0.7;
+    color: black;
+}
+
 /*-------------------------*/
 /*-------ENTRY PAGE--------*/
 /*-------------------------*/
@@ -107,8 +125,15 @@ h5 {
 
 button {
     opacity: 70%;
-    
-    
+}
+
+.max {
+    display:none; 
+    position:absolute; 
+    left:50%; 
+    transform:translateX(-50%); 
+    color:red;
+    opacity: 0.7
 }
 
 /*Recents Entry Page Template - Character Max Count/Lines Count*/
@@ -117,7 +142,7 @@ button {
     white-space: nowrap;
     overflow: hidden; 
     text-overflow: ellipsis;
-  
+    font-size: 110%;
   }
 
 h4 {

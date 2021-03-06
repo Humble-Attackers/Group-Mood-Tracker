@@ -1,13 +1,36 @@
+
+/*---------------------------------*/
+/*--------------ON LOAD------------*/
+/*---------------------------------*/
+
+let pcUser = '';
+
+if (JSON.parse(localStorage.getItem("id")) !== null) {
+  pcUser = JSON.parse(localStorage.getItem("id"));
+  document.querySelector('#theBtn').innerHTML = `
+  <button class="btn float-end" onclick="logout()">
+    Log out
+  </button>
+  `
+}
+
+function logout(){
+  localStorage.removeItem('id')
+  location.href = '/'
+}
+
 /*---------------------------------*/
 /*-----------ENTRY PAGE------------*/
 /*---------------------------------*/
 
-let arr;
+let arr = -1;
 
 function fetchJSON(url, method = "get", data = {}) {
+
   const fetchOptions = {
     method,
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json",
+              'session':pcUser },
   };
   if (method === "post" || method === "put")
     fetchOptions.body = JSON.stringify(data);
@@ -27,8 +50,8 @@ async function loadQuote() {
       document.querySelector("#title").value = noteData.title;
       document.querySelector("#note").value = noteData.note;
       document.querySelector("#newBtn").innerHTML = `
-                <button class="btn btn-light" onClick='deleteNote(${noteData.id})'>DELETE</button>
-                <button class="btn btn-light float-end d-none d-sm-block" onClick="submitForm(event)">SAVE</button>
+                <button class="btn btn-light mb-5" onClick='deleteNote(${noteData.id})'>DELETE</button>
+                <button class="btn btn-light mb-5 float-end" onClick="submitForm(event)">SAVE</button>
                 `;
       if (arr === 1) { document.getElementById("one").style.boxShadow = '0 0 0 3px black' }
       else if (arr === 2) { document.getElementById("two").style.boxShadow = '0 0 0 3px black' }
@@ -114,18 +137,102 @@ function push5() {
 
 async function submitForm(e) {
   e.preventDefault();
-
+  
   const id = document.getElementById("id").value;
+  const first = document.getElementById("title").value
+  const second = document.getElementById("note").value
 
   const noteData = {
     emotion: arr,
-    title: document.getElementById("title").value,
-    note: document.getElementById("note").value,
+    title: first,
+    note: second,
+    username: pcUser
   };
 
-  await fetchJSON(`/api/notes/${id}`, id ? "put" : "post", noteData);
+  if ( pcUser.length < 1 ){
+    document.querySelector('#logFirst').style.display = 'block'
+  } else if ( arr === -1 ){
+    document.querySelector('#least').style.display = 'block'
+  } else if ( first.length > 100 ){
+    document.querySelector('#max1').style.display = 'block'
+  } else if ( second.length > 1000 ){
+    document.querySelector('#max2').style.display = 'block'
+  } else {
+    await fetchJSON(`/api/notes/${id}`, id ? "put" : "post", noteData);
 
   location.href = "/recents.html";
+  }
+}
+
+async function signup(e) {
+  e.preventDefault();
+
+  const data = {
+    username: document.getElementById('username').value,
+    password: document.getElementById('password').value
+  }
+
+  const fetchOptions = {
+    method: 'POST',
+    headers: { "Content-Type": "application/json" }
+  }
+  fetchOptions.body = JSON.stringify(data)
+
+  const result = await fetch('/signup', fetchOptions).then(r=>r.json())
+ 
+  if (result === 'Already taken!'){
+    document.querySelector('#taken').innerHTML = `
+      <label for="username" class="form-label">Username</label>
+      <input class="form-control" id="username" placeholder="Already taken!">
+    `
+  } else if ( result === 'Too short!' ){
+    document.querySelector('#tooShort').innerHTML = `
+    <label for="password" class="form-label">Password</label>
+    <input type="password" class="form-control" id="password" placeholder="Minimum 4 characters">
+    `
+  } else if ( result === '3 or more!'){
+    document.querySelector('#taken').innerHTML = `
+    <label for="username" class="form-label">Username</label>
+    <input class="form-control" id="username" placeholder="Minimum of 3 characters!">
+    `
+  } else {
+    location.href = "/"
+  }
+}
+
+async function signIn(e) {
+  e.preventDefault();
+
+  const data = {
+    username: document.getElementById('enteruse').value,
+    password: document.getElementById('enterpass').value
+  }
+
+  const fetchOptions = {
+    method: 'POST',
+    headers: { "Content-Type": "application/json" }
+  }
+  fetchOptions.body = JSON.stringify(data)
+  
+
+  const result = await fetch('/login', fetchOptions).then(r=>r.json())
+  console.log(result)
+
+  if (result === 'No such being!'){
+    document.querySelector('#heroo').innerHTML = `
+    <label for="enteruse" class="form-label">Username</label>
+    <input class="form-control" id="enteruse" placeholder="No such being!">
+    `
+  } else if (result === 'Try again!'){
+    document.querySelector('#again').innerHTML = `
+    <label for="enterpass" class="form-label">Password</label>
+    <input type="password" class="form-control" id="enterpass" placeholder="Try again!">
+    `
+  } else {
+    const identification = data.username
+    localStorage.setItem('id', JSON.stringify(identification))
+    location.href = "/"
+  }
 }
 
 /*---------------------------------*/
@@ -137,16 +244,13 @@ function editQuote(id) {
 }
 
 async function getList() {
-  const date = location.hash.substr(1);
-  let data
-  if (date !== "") {
-    document.getElementById("recents_subtitle").innerText = `Here is a list of your entries from ${date}`
-    data = await fetch(`/api/list/${date}`).then(r => r.json())
 
-
-  } else {
-    data = await fetch("/api/notes").then((r) => r.json());
+  const fetchOptions = {
+    method: 'GET',
+    headers: { 'Content-type': 'application/json',
+                'Session': pcUser }
   }
+  const data = await fetch("/api/notes", fetchOptions).then((r) => r.json());
 
 
 
@@ -170,11 +274,20 @@ async function getList() {
       case 1:
         emotionColour = "red"
         break
+      default:
+        emotionColour = "grey"
     }
     document.getElementById("entrySlot").innerHTML += `
-  <h3 style="border-left: 20px solid ${emotionColour}; border-right: 20px solid transparent ; margin-top: 10px">${r.title}</h3>
-  <h4> ${r.note} </h4>
-  <button class="btn btn-primary" onclick=editQuote(${r.id})>edit</button>
+    <div class="card-body d-flex">
+      <tr>
+    <div style="width:7px; height:100%; background-color: ${emotionColour};">
+      </div>
+      <div class="container text-center" style="width:80%;">
+        <h3 style="color:black; opacity:.69">${r.title}</h3>
+        <p class="truncate">${r.note}</p>
+        <button class="btn btn-primary my-2" style="width:77px" onclick=editQuote(${r.id})>edit</button>
+      </div>
+    </div>
   `;
   });
 }
@@ -315,18 +428,18 @@ function buildDoughnut(data) {
 function updateTime(newText) {
   document.getElementById("timeDropdown").innerText = newText;
 }
-function updateType(newText) {
-  document.getElementById("typeDropdown").innerText = newText;
-}
+// function updateType(newText) {
+//   document.getElementById("typeDropdown").innerText = newText;
+// }
 
 // get values in dropdowns and make API to get necessary data to create chart
 async function updateChart() {
   let timeFrame = document.getElementById("timeDropdown").innerText;
-  let chartType = document.getElementById("typeDropdown").innerText;
+  // let chartType = document.getElementById("typeDropdown").innerText;
   // check if dropdowns have been changed before doing anyting
-  if (chartType !== "What Type of Chart?" && timeFrame !== "How Many Days?") {
+  // if (chartType !== "What Type of Chart?" && timeFrame !== "How Many Days?") {
     // do server stuff here
-    if (chartType == "Doughnut Graph") {
+    // if (chartType == "Doughnut Graph") {
       // vvvvvvvvvvv IMPLEMENT CALL TO SERVER HERE vvvvvvvvvvvvv
       let doughnutData = await getDoughnutData(timeFrame);
       // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -335,10 +448,17 @@ async function updateChart() {
         "graph_title"
       ).innerText = `Mood For the ${timeFrame}`;
       buildDoughnut(doughnutData);
-    }
-  }
+    // }
+  // }
 }
 async function getDoughnutData(timeFrame) {
+
+  const fetchOptions = {
+    method: 'GET',
+    headers: { 'Content-type': 'application/json',
+              'session': pcUser }
+  }
+
   let range;
   switch (timeFrame) {
     case "Past 7 Days":
@@ -354,7 +474,7 @@ async function getDoughnutData(timeFrame) {
       range = 7;
       break;
   }
-  let returnedData = await fetch(`/api/dates/${range}`).then((r) => r.json());
+  let returnedData = await fetch(`/api/dates/${range}`, fetchOptions).then((r) => r.json());
   let doughnutData = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
   for (let i = 0; i < returnedData.length; i++) {
     doughnutData[returnedData[i].emotion] += 1;
@@ -378,7 +498,13 @@ async function buildCalendar() {
   const usedDates = []
   const averages = []
 
-  const dbData = await fetch('/api/calendar').then(r => r.json())
+  const fetchOptions = {
+    method: 'GET',
+    headers: { 'Content-type': 'application/json',
+              'Session': pcUser }
+  }
+
+  const dbData = await fetch('/api/calendar', fetchOptions).then(r => r.json())
 
   let startDate = dbData[0]["DATE(time)"]
   let currentDate = new Date()
