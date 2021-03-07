@@ -155,6 +155,11 @@ h4 {
     text-overflow: ellipsis; 
     
 }
+
+#theClick:hover {
+    cursor: pointer;
+    background-color:rgb(212, 229, 236);
+}
   
 /*  */
 #backgroundVD {

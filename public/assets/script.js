@@ -278,15 +278,17 @@ async function getList() {
         emotionColour = "grey"
     }
     document.getElementById("entrySlot").innerHTML += `
-    <div class="card-body d-flex">
+    <div class="card-body d-flex" id="theClick" onclick=editQuote(${r.id})>
       <tr>
     <div style="width:7px; height:100%; background-color: ${emotionColour};">
       </div>
       <div class="container text-center" style="width:80%;">
+        <div class="row">
         <h3 style="color:black; opacity:.69">${r.title}</h3>
+        </div>
         <p class="truncate">${r.note}</p>
-        <button class="btn btn-primary my-2" style="width:77px" onclick=editQuote(${r.id})>edit</button>
       </div>
+      
     </div>
   `;
   });
